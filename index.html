@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        body {
+            /* set margin to 0 and overflow to hidden, to use the complete page */
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three/examples/jsm/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    
+    <script type="module">
+            import * as THREE from "three";
+            import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+            const scene = new THREE.Scene();
+
+            const camera = new THREE.PerspectiveCamera(45,window.innerWidth/window.innerHeight,.1,50);
+            camera.position.set(0, 0, 3);
+            camera.lookAt(new THREE.Vector3(0, 0, 0)); // point camera
+
+            const renderer = new THREE.WebGLRenderer();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setClearColor("#333333");
+            document.body.appendChild(renderer.domElement);
+
+            const controls = new OrbitControls(camera, renderer.domElement);
+
+            //COLOCAR AQUI
+
+            let geometry = new THREE.BoxGeometry( .9, .05, .05 ); 
+            let material = new THREE.MeshBasicMaterial( { color: 0xff0000 } ); 
+            const structure1 = new THREE.Mesh( geometry, material )
+            scene.add( structure1 );
+            structure1.rotateZ(Math.PI/12)
+
+            geometry = new THREE.BoxGeometry( .5, .05, .05 ); 
+            material = new THREE.MeshBasicMaterial( { color: 0x0000ff } ); 
+            const structure2 = new THREE.Mesh( geometry, material )
+            structure1.add( structure2 );
+            structure2.position.set(-.48,.2,0)
+            structure2.rotateZ(3*Math.PI/2)
+
+            geometry = new THREE.BoxGeometry( 1.3, .05, .05 ); 
+            material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } ); 
+            const structure3 = new THREE.Mesh( geometry, material )
+            structure1.add( structure3 );
+            structure3.position.set(.4,.10,0)
+            structure3.rotateZ(3*Math.PI/2)
+
+            geometry = new THREE.BoxGeometry( .1, .3, .15 );
+            material = new THREE.MeshBasicMaterial( { color: 'brown' } ); 
+            const seat = new THREE.Mesh( geometry, material )
+            seat.position.set(-.3,0,0)
+            structure2.add(seat)
+
+            geometry = new THREE.CylinderGeometry( .1, .1, .1, 8 ); 
+            material = new THREE.MeshBasicMaterial( {color: 0xffff00} ); 
+            const central = new THREE.Mesh( geometry, material );
+            central.rotateZ(Math.PI/2)
+            central.position.set(-.6,0,0)
+            structure3.add( central );
+
+            geometry = new THREE.BoxGeometry( .05, .05, .6 );
+            material = new THREE.MeshBasicMaterial( { color: 'black' } ); 
+            const stick = new THREE.Mesh( geometry, material )
+            central.add(stick)
+
+            geometry = new THREE.BoxGeometry( .05, .05, .2 );
+            material = new THREE.MeshBasicMaterial( { color: 'grey' } ); 
+            const lStick = new THREE.Mesh( geometry, material )
+            lStick.position.set(-.07,0,-.32)
+            lStick.rotateY(Math.PI/3)
+            stick.add(lStick)
+
+            geometry = new THREE.BoxGeometry( .05, .05, .2 );
+            material = new THREE.MeshBasicMaterial( { color: 'grey' } ); 
+            const rStick = new THREE.Mesh( geometry, material )
+            rStick.position.set(-.07,0,.32)
+            rStick.rotateY(-Math.PI/3)
+            stick.add(rStick)
+
+            geometry = new THREE.CylinderGeometry( .45, .45, .04, 12 ); 
+            material = new THREE.MeshBasicMaterial( {color: 0xffffff} ); 
+            const tireF = new THREE.Mesh( geometry, material );
+            tireF.rotateX(Math.PI/2)
+            tireF.position.set(.75,0,0)
+            structure3.add( tireF );
+
+            geometry = new THREE.BoxGeometry( .05, .65, .05 );
+            material = new THREE.MeshBasicMaterial( { color: 'cyan' } ); 
+            const lProtection = new THREE.Mesh( geometry, material )
+            lProtection.position.set(.28,-.2,.05)
+            lProtection.rotateZ(Math.PI/5.5)
+            structure2.add(lProtection)
+
+            geometry = new THREE.BoxGeometry( .05, .65, .05 );
+            material = new THREE.MeshBasicMaterial( { color: 'cyan' } ); 
+            const rProtection = new THREE.Mesh( geometry, material )
+            rProtection.position.set(.28,-.2,-.1)
+            rProtection.rotateZ(Math.PI/5.5)
+            structure2.add(rProtection)
+
+            geometry = new THREE.CylinderGeometry( .45, .45, .04, 12 ); 
+            material = new THREE.MeshBasicMaterial( {color: 0xffffff} ); 
+            const tireB = new THREE.Mesh( geometry, material );
+            tireB.rotateX(Math.PI/2)
+            tireB.position.set(0,-.35,-.05)
+            lProtection.add( tireB );
+
+            //Para rodar: central.rotateY(angulo)
+
+            renderer.setAnimationLoop(render)
+            
+            function render(){
+                renderer.render(scene, camera);
+            }
+
+    </script>
+  </body>
+</html>
