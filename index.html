@@ -110,7 +110,7 @@
             geometry = new THREE.BoxGeometry( .05, .65, .05 );
             material = new THREE.MeshBasicMaterial( { color: 'cyan' } ); 
             const rProtection = new THREE.Mesh( geometry, material )
-            rProtection.position.set(.28,-.2,-.1)
+            rProtection.position.set(.28,-.2,-.05)
             rProtection.rotateZ(Math.PI/5.5)
             structure2.add(rProtection)
 
@@ -121,11 +121,45 @@
             tireB.position.set(0,-.35,-.05)
             lProtection.add( tireB );
 
+            geometry = new THREE.BoxGeometry( .05, .85, .05 );
+            material = new THREE.MeshBasicMaterial( { color: 'yellow' } ); 
+            const lPedalProtect = new THREE.Mesh( geometry, material )
+            lPedalProtect.position.set(.55,-.15,-.05)
+            lPedalProtect.rotateZ(-Math.PI/12)
+            structure2.add(lPedalProtect)
+
+            geometry = new THREE.BoxGeometry( .05, .85, .05 );
+            material = new THREE.MeshBasicMaterial( { color: 'yellow' } ); 
+            const rPedalProtect = new THREE.Mesh( geometry, material )
+            rPedalProtect.position.set(.55,-.15,.05)
+            rPedalProtect.rotateZ(-Math.PI/12)
+            structure2.add(rPedalProtect)
+
+            geometry = new THREE.CylinderGeometry( .1, .1, .04, 8 ); 
+            material = new THREE.MeshBasicMaterial( {color: 0xff0000} ); 
+            const lCirclePedal = new THREE.Mesh( geometry, material );
+            lCirclePedal.rotateX(Math.PI/2)
+            lCirclePedal.position.set(0,.4,0)
+            lPedalProtect.add( lCirclePedal );
+
+            geometry = new THREE.CylinderGeometry( .1, .1, .04, 8 ); 
+            material = new THREE.MeshBasicMaterial( {color: 0xff0000} ); 
+            const rCirclePedal = new THREE.Mesh( geometry, material );
+            rCirclePedal.rotateX(Math.PI/2)
+            rCirclePedal.position.set(0,.4,0)
+            rPedalProtect.add( rCirclePedal );
+
             //Para rodar: central.rotateY(angulo)
 
             renderer.setAnimationLoop(render)
             
             function render(){
+                /* tireF.rotateY(Math.PI/100)
+                tireB.rotateY(Math.PI/100)
+                structure3.rotateX(Math.PI/100) */
+
+
+
                 renderer.render(scene, camera);
             }
 
