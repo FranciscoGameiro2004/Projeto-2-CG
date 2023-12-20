@@ -149,16 +149,42 @@
             rCirclePedal.position.set(0,.4,0)
             rPedalProtect.add( rCirclePedal );
 
+            geometry = new THREE.BoxGeometry( .2, .025, .05 );
+            material = new THREE.MeshBasicMaterial( { color: 'purple' } ); 
+            const rPedalLeg = new THREE.Mesh( geometry, material )
+            rPedalLeg.position.set(.1,.025,.0)
+            rCirclePedal.add(rPedalLeg)
+
+            geometry = new THREE.BoxGeometry( .2, .025, .05 );
+            material = new THREE.MeshBasicMaterial( { color: 'purple' } ); 
+            const lPedalLeg = new THREE.Mesh( geometry, material )
+            lPedalLeg.position.set(-.1,-.025,.0)
+            lCirclePedal.add(lPedalLeg)
+
+            geometry = new THREE.BoxGeometry( .05, .1, .1 );
+            material = new THREE.MeshBasicMaterial( { color: 'yellow' } ); 
+            const lPedal = new THREE.Mesh( geometry, material )
+            lPedal.position.set(-.1,-.05,.0)
+            lPedalLeg.add(lPedal)
+
+            geometry = new THREE.BoxGeometry( .05, .1, .1 );
+            material = new THREE.MeshBasicMaterial( { color: 'yellow' } ); 
+            const rPedal = new THREE.Mesh( geometry, material )
+            rPedal.position.set(.1,.05,.0)
+            rPedalLeg.add(rPedal)
+
             //Para rodar: central.rotateY(angulo)
 
             renderer.setAnimationLoop(render)
             
             function render(){
-                /* tireF.rotateY(Math.PI/100)
-                tireB.rotateY(Math.PI/100)
-                structure3.rotateX(Math.PI/100) */
+                 tireF.rotateY(-Math.PI/100)
+                tireB.rotateY(-Math.PI/100)
 
-
+                lPedal.rotateY(.05)
+                rPedal.rotateY(.05)
+                rCirclePedal.rotateY(-.05)
+                lCirclePedal.rotateY(-.05)
 
                 renderer.render(scene, camera);
             }
