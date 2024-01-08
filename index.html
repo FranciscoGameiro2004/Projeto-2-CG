@@ -47,7 +47,7 @@
 
             //VARIÁVEIS GLOBAIS
             let currentPedalRotation = 0
-            let rotationStage = {left: 0}
+            let rotationStage = {left: 0, right: 4}
             let clock = {old: 0, new: Date.now()}
 
             //COLOCAR AQUI
@@ -198,6 +198,7 @@
             hip.position.set(.1,.05,.0)
             person.add(hip)
 
+            //PERNA ESQUERDA
             const leftLeg = new THREE.Object3D()
             hip.add(leftLeg)
 
@@ -235,6 +236,46 @@
             let axeLEG4 = new THREE.AxesHelper(2)
             lLowerLeg_PIVOT.add(axeLEG4)
 
+            //PERNA DIREITA
+            const rightLeg = new THREE.Object3D()
+            hip.add(rightLeg)
+
+            geometry = new THREE.BoxGeometry( .15, .6, .10 );
+            material = new THREE.MeshBasicMaterial( { color: 'magenta' } ); 
+            const rUpperLeg = new THREE.Mesh( geometry, material )
+            rUpperLeg.position.set(0,-.28,.12)
+            rightLeg.add(rUpperLeg)
+
+            const rLowerLeg_PIVOT = new THREE.Object3D()
+            rUpperLeg.add(rLowerLeg_PIVOT)
+            rLowerLeg_PIVOT.position.set(0,-.3,0)
+            let axeLEG5 = new THREE.AxesHelper(2)
+            rUpperLeg.add(axeLEG5)
+
+            geometry = new THREE.BoxGeometry( .15, .5, .10 );
+            material = new THREE.MeshBasicMaterial( { color: 'orange' } ); 
+            const rLowerLeg = new THREE.Mesh( geometry, material )
+            rLowerLeg.position.set(0,-.25,0)
+            rLowerLeg_PIVOT.add(rLowerLeg)
+            let axeLEG6 = new THREE.AxesHelper(2)
+            rLowerLeg_PIVOT.add(axeLEG6)
+
+            const rFeet_PIVOT = new THREE.Object3D()
+            rLowerLeg_PIVOT.add(rFeet_PIVOT)
+            rFeet_PIVOT.position.set(0,-.5,0)
+            let axeLEG7 = new THREE.AxesHelper(2)
+            rFeet_PIVOT.add(axeLEG7)
+
+            geometry = new THREE.BoxGeometry( .25, .10, .10 );
+            material = new THREE.MeshBasicMaterial( { color: 'blue' } ); 
+            const rFeet = new THREE.Mesh( geometry, material )
+            rFeet.position.set(.05,-.05,0)
+            rFeet_PIVOT.add(rFeet)
+            let axeLEG8 = new THREE.AxesHelper(2)
+            lLowerLeg_PIVOT.add(axeLEG8)
+
+
+
             //Para rodar: central.rotateY(angulo)
             let angle = 0  //3.5*Math.PI/4
             //let angle = 0
@@ -254,7 +295,7 @@
               clock.old = clock.new
               clock.new = Date.now()
 
-                 tireF.rotateY(-Math.PI/100)
+                tireF.rotateY(-Math.PI/100)
                 tireB.rotateY(-Math.PI/100)
 
                 /* lPedal.rotateY(.05)
@@ -281,64 +322,106 @@
 
               let leftInc = {leg:.0, lowPiv:.0, feetPiv:.0}
               
+              
               if (currentPedalRotation>0*Math.PI/4 && currentPedalRotation<=1*Math.PI/4) {
                 rotationStage.left = 0
+                rotationStage.right = 4
               } else if (currentPedalRotation>1*Math.PI/4 && currentPedalRotation<=2*Math.PI/4) {
                 rotationStage.left = 1
+                rotationStage.right = 5
               } else if (currentPedalRotation>2*Math.PI/4 && currentPedalRotation<=3*Math.PI/4) {
                 rotationStage.left = 2
+                rotationStage.right = 6
               } else if (currentPedalRotation>3*Math.PI/4 && currentPedalRotation<=4*Math.PI/4) {
                 rotationStage.left = 3
+                rotationStage.right = 7
               } else if (currentPedalRotation>4*Math.PI/4 && currentPedalRotation<=5*Math.PI/4) {
                 rotationStage.left = 4
+                rotationStage.right = 0
               } else if (currentPedalRotation>5*Math.PI/4 && currentPedalRotation<=6*Math.PI/4) {
                 rotationStage.left = 5
+                rotationStage.right = 1
               } else if (currentPedalRotation>6*Math.PI/4 && currentPedalRotation<=7*Math.PI/4) {
                 rotationStage.left = 6
+                rotationStage.right = 2
               } else if (currentPedalRotation>7*Math.PI/4 && currentPedalRotation<=8*Math.PI/4) {
                 rotationStage.left = 7
-              } else {
-                rotationStage.left = 8
+                rotationStage.right = 3
               }
 
+              //TODO: DEPOIS ACRESCENTAR MAIS PONTOS FIXOS!!!
+
+              // Rotação da perna esquerda
               if (rotationStage.left == 0) {
-                leftInc.leg = ((3.3*Math.PI/8) - (3.25*Math.PI/8)) /(clock.new-clock.old)
-                leftInc.lowPiv = ((-0.85*Math.PI/2) - (-Math.PI/2)) /(clock.new-clock.old)
-                leftInc.feetPiv = ((Math.PI/16) - (0.8125*Math.PI/8)) /(clock.new-clock.old)
+                leftLeg.rotation.z = 3.25*Math.PI/8
+                lLowerLeg_PIVOT.rotation.z = -1*Math.PI/2
+                lFeet_PIVOT.rotation.z = 0.8125*Math.PI/8
               } else if (rotationStage.left == 1) {
-                leftInc.leg = ((2.3*Math.PI/8) - (3.3*Math.PI/8)) /(clock.new-clock.old)
-                leftInc.lowPiv = ((-0.3*Math.PI/2) - (-0.85*Math.PI/2)) /(clock.new-clock.old)
-                leftInc.feetPiv = ((-1.2*Math.PI/8) - (Math.PI/16)) /(clock.new-clock.old)
+                leftLeg.rotation.z = 3.3*Math.PI/8
+                lLowerLeg_PIVOT.rotation.z = -0.85*Math.PI/2
+                lFeet_PIVOT.rotation.z = Math.PI/16
               } else if (rotationStage.left == 2) {
-                leftInc.leg = ((Math.PI/8) - (2.3*Math.PI/8)) /(clock.new-clock.old)
-                leftInc.lowPiv = ((-0*Math.PI/2) - (-0.3*Math.PI/2)) /(clock.new-clock.old)
-                leftInc.feetPiv = ((-1*Math.PI/8) - (-1.2*Math.PI/8)) /(clock.new-clock.old)
+                leftLeg.rotation.z = 2.3*Math.PI/8
+                lLowerLeg_PIVOT.rotation.z = -0.3*Math.PI/2
+                lFeet_PIVOT.rotation.z = -1.2*Math.PI/8
               } else if (rotationStage.left == 3) {
-                leftInc.leg = ((Math.PI/8) - (Math.PI/8)) /(clock.new-clock.old)
-                leftInc.lowPiv = ((-0.05*Math.PI) - (-0.3*Math.PI/2)) /(clock.new-clock.old)
-                leftInc.feetPiv = ((-.65*Math.PI/8) - (-1*Math.PI/8)) /(clock.new-clock.old)
+                leftLeg.rotation.z = Math.PI/8
+                lLowerLeg_PIVOT.rotation.z = 0
+                lFeet_PIVOT.rotation.z = -Math.PI/8
               } else if (rotationStage.left == 4) {
-                leftInc.leg = ((1.7*Math.PI/8) - (Math.PI/8)) /(clock.new-clock.old)
-                leftInc.lowPiv = ((-0.25*Math.PI) - (-0.05*Math.PI)) /(clock.new-clock.old)
-                leftInc.feetPiv = ((-.25*Math.PI/8) - (-.65*Math.PI/8)) /(clock.new-clock.old)
+                leftLeg.rotation.z = Math.PI/8
+                lLowerLeg_PIVOT.rotation.z = -0.05*Math.PI
+                lFeet_PIVOT.rotation.z = 1.95*Math.PI
               } else if (rotationStage.left == 5) {
-                leftInc.leg = ((Math.PI/4) - (1.7*Math.PI/8)) /(clock.new-clock.old)
-                leftInc.lowPiv = ((-0.4*Math.PI) - (-0.25*Math.PI)) /(clock.new-clock.old)
-                leftInc.feetPiv = ((1.2*Math.PI/8) - (-.25*Math.PI/8)) /(clock.new-clock.old)
+                leftLeg.rotation.z = 1.7*Math.PI/8
+                lLowerLeg_PIVOT.rotation.z = -4.5*Math.PI/2
+                lFeet_PIVOT.rotation.z = -0.25*Math.PI/8
               } else if (rotationStage.left == 6) {
-                leftInc.leg = ((2.8*Math.PI/8) - (Math.PI/4)) /(clock.new-clock.old)
-                leftInc.lowPiv = ((-Math.PI/2) - (-0.4*Math.PI)) /(clock.new-clock.old)
-                leftInc.feetPiv = ((1.2*Math.PI/8) - (1.2*Math.PI/8)) /(clock.new-clock.old)
+                leftLeg.rotation.z = Math.PI/4
+                lLowerLeg_PIVOT.rotation.z = -0.4*Math.PI
+                lFeet_PIVOT.rotation.z = 1.2*Math.PI/8
               } else if (rotationStage.left == 7) {
-                leftInc.leg = ((3.25*Math.PI/8) - (2.8*Math.PI/8)) /(clock.new-clock.old)
-                leftInc.lowPiv = ((-Math.PI/2) - (-Math.PI/2)) /(clock.new-clock.old)
-                leftInc.feetPiv = ((0.8125*Math.PI/8) - (1.2*Math.PI/8)) /(clock.new-clock.old)
+                leftLeg.rotation.z = 2.8*Math.PI/8
+                lLowerLeg_PIVOT.rotation.z = -Math.PI/2
+                lFeet_PIVOT.rotation.z = 1.2*Math.PI/8
               }
-              console.log(rotationStage.left);
 
-              leftLeg.rotateZ(leftInc.leg)
-              lLowerLeg_PIVOT.rotateZ(leftInc.lowPiv)
-              lFeet_PIVOT.rotateZ(leftInc.feetPiv)
+              // Rotação da perna direita
+              if (rotationStage.right == 0) {
+                rightLeg.rotation.z = 3.25*Math.PI/8
+                rLowerLeg_PIVOT.rotation.z = -1*Math.PI/2
+                rFeet_PIVOT.rotation.z = 0.8125*Math.PI/8
+              } else if (rotationStage.right == 1) {
+                rightLeg.rotation.z = 3.3*Math.PI/8
+                rLowerLeg_PIVOT.rotation.z = -0.85*Math.PI/2
+                rFeet_PIVOT.rotation.z = Math.PI/16
+              } else if (rotationStage.right == 2) {
+                rightLeg.rotation.z = 2.3*Math.PI/8
+                rLowerLeg_PIVOT.rotation.z = -0.3*Math.PI/2
+                rFeet_PIVOT.rotation.z = -1.2*Math.PI/8
+              } else if (rotationStage.right == 3) {
+                rightLeg.rotation.z = Math.PI/8
+                rLowerLeg_PIVOT.rotation.z = 0
+                rFeet_PIVOT.rotation.z = -Math.PI/8
+              } else if (rotationStage.right == 4) {
+                rightLeg.rotation.z = Math.PI/8
+                rLowerLeg_PIVOT.rotation.z = -0.05*Math.PI
+                rFeet_PIVOT.rotation.z = 1.95*Math.PI
+              } else if (rotationStage.right == 5) {
+                rightLeg.rotation.z = 1.7*Math.PI/8
+                rLowerLeg_PIVOT.rotation.z = -4.5*Math.PI/2
+                rFeet_PIVOT.rotation.z = -0.25*Math.PI/8
+              } else if (rotationStage.right == 6) {
+                rightLeg.rotation.z = Math.PI/4
+                rLowerLeg_PIVOT.rotation.z = -0.4*Math.PI
+                rFeet_PIVOT.rotation.z = 1.2*Math.PI/8
+              } else if (rotationStage.right == 7) {
+                rightLeg.rotation.z = 2.8*Math.PI/8
+                rLowerLeg_PIVOT.rotation.z = -Math.PI/2
+                rFeet_PIVOT.rotation.z = 1.2*Math.PI/8
+              }
+
+              
             }
 
     </script>
