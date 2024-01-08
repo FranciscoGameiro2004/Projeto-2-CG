@@ -211,30 +211,30 @@
             const lLowerLeg_PIVOT = new THREE.Object3D()
             lUpperLeg.add(lLowerLeg_PIVOT)
             lLowerLeg_PIVOT.position.set(0,-.3,0)
-            let axeLEG1 = new THREE.AxesHelper(2)
-            lUpperLeg.add(axeLEG1)
+            /* let axeLEG1 = new THREE.AxesHelper(2)
+            lUpperLeg.add(axeLEG1) */
 
             geometry = new THREE.BoxGeometry( .15, .5, .10 );
             material = new THREE.MeshBasicMaterial( { color: 'orange' } ); 
             const lLowerLeg = new THREE.Mesh( geometry, material )
             lLowerLeg.position.set(0,-.25,0)
             lLowerLeg_PIVOT.add(lLowerLeg)
-            let axeLEG2 = new THREE.AxesHelper(2)
-            lLowerLeg_PIVOT.add(axeLEG2)
+            /* let axeLEG2 = new THREE.AxesHelper(2)
+            lLowerLeg_PIVOT.add(axeLEG2) */
 
             const lFeet_PIVOT = new THREE.Object3D()
             lLowerLeg_PIVOT.add(lFeet_PIVOT)
             lFeet_PIVOT.position.set(0,-.5,0)
-            let axeLEG3 = new THREE.AxesHelper(2)
-            lFeet_PIVOT.add(axeLEG3)
+            /* let axeLEG3 = new THREE.AxesHelper(2)
+            lFeet_PIVOT.add(axeLEG3) */
 
             geometry = new THREE.BoxGeometry( .25, .10, .10 );
             material = new THREE.MeshBasicMaterial( { color: 'blue' } ); 
             const lFeet = new THREE.Mesh( geometry, material )
             lFeet.position.set(.05,-.05,0)
             lFeet_PIVOT.add(lFeet)
-            let axeLEG4 = new THREE.AxesHelper(2)
-            lLowerLeg_PIVOT.add(axeLEG4)
+            /* let axeLEG4 = new THREE.AxesHelper(2)
+            lLowerLeg_PIVOT.add(axeLEG4) */
 
             //PERNA DIREITA
             const rightLeg = new THREE.Object3D()
@@ -249,37 +249,104 @@
             const rLowerLeg_PIVOT = new THREE.Object3D()
             rUpperLeg.add(rLowerLeg_PIVOT)
             rLowerLeg_PIVOT.position.set(0,-.3,0)
-            let axeLEG5 = new THREE.AxesHelper(2)
-            rUpperLeg.add(axeLEG5)
+            /* let axeLEG5 = new THREE.AxesHelper(2)
+            rUpperLeg.add(axeLEG5) */
 
             geometry = new THREE.BoxGeometry( .15, .5, .10 );
             material = new THREE.MeshBasicMaterial( { color: 'orange' } ); 
             const rLowerLeg = new THREE.Mesh( geometry, material )
             rLowerLeg.position.set(0,-.25,0)
             rLowerLeg_PIVOT.add(rLowerLeg)
-            let axeLEG6 = new THREE.AxesHelper(2)
-            rLowerLeg_PIVOT.add(axeLEG6)
+            /* let axeLEG6 = new THREE.AxesHelper(2)
+            rLowerLeg_PIVOT.add(axeLEG6) */
 
             const rFeet_PIVOT = new THREE.Object3D()
             rLowerLeg_PIVOT.add(rFeet_PIVOT)
             rFeet_PIVOT.position.set(0,-.5,0)
-            let axeLEG7 = new THREE.AxesHelper(2)
-            rFeet_PIVOT.add(axeLEG7)
+            /* let axeLEG7 = new THREE.AxesHelper(2)
+            rFeet_PIVOT.add(axeLEG7) */
 
             geometry = new THREE.BoxGeometry( .25, .10, .10 );
             material = new THREE.MeshBasicMaterial( { color: 'blue' } ); 
             const rFeet = new THREE.Mesh( geometry, material )
             rFeet.position.set(.05,-.05,0)
             rFeet_PIVOT.add(rFeet)
-            let axeLEG8 = new THREE.AxesHelper(2)
-            lLowerLeg_PIVOT.add(axeLEG8)
+            /* let axeLEG8 = new THREE.AxesHelper(2)
+            lLowerLeg_PIVOT.add(axeLEG8) */
 
-
+            //TRONCO
             geometry = new THREE.BoxGeometry( .15, .6, .35 );
             material = new THREE.MeshBasicMaterial( { color: 'red' } ); 
             const torso = new THREE.Mesh( geometry, material )
             torso.position.set(0,.37,.0)
             hip.add(torso)
+
+            //BRAÇO ESQUERDO
+            const leftArm = new THREE.Object3D()
+            leftArm.position.set(0,.25,-0.175-.0375)
+            let axeARM1 = new THREE.AxesHelper(.8)
+            leftArm.add(axeARM1)
+            torso.add(leftArm)
+
+            geometry = new THREE.BoxGeometry( .15, .4, .075 );
+            material = new THREE.MeshBasicMaterial( { color: 'GREY' } ); 
+            const lUpperArm = new THREE.Mesh( geometry, material )
+            lUpperArm.position.set(0,-.2,.0)
+            leftArm.add(lUpperArm)
+
+            const lLowerArm_PIVOT = new THREE.Object3D()
+            lLowerArm_PIVOT.position.set(0,-.4,0)
+            leftArm.add(lLowerArm_PIVOT)
+            let axeARM2 = new THREE.AxesHelper(.8)
+            lLowerArm_PIVOT.add(axeARM2)
+
+            geometry = new THREE.BoxGeometry( .15, .4, .075 );
+            material = new THREE.MeshBasicMaterial( { color: 'blue' } ); 
+            const lLowerArm = new THREE.Mesh( geometry, material )
+            lLowerArm.position.set(0,-.2,.0)
+            lLowerArm_PIVOT.add(lLowerArm)
+
+            const lHand_PIVOT = new THREE.Object3D()
+            let axeARM3 = new THREE.AxesHelper(.8)
+            lHand_PIVOT.add(axeARM3)
+            lHand_PIVOT.position.set(0,-.2,0)
+            lLowerArm.add(lHand_PIVOT)
+
+            geometry = new THREE.BoxGeometry( .15, .075, .0375/2 );
+            material = new THREE.MeshBasicMaterial( { color: 'yellow' } ); 
+            const lPalmHand = new THREE.Mesh( geometry, material )
+            lPalmHand.position.set(0,-.0375,.0)
+            lHand_PIVOT.add(lPalmHand)
+
+            const lMiddleHand_Pivot = new THREE.Object3D()
+            lMiddleHand_Pivot.position.set(0,-.0375,0)
+            let axeARM4 = new THREE.AxesHelper(.4)
+            lMiddleHand_Pivot.add(axeARM4)
+            lPalmHand.add(lMiddleHand_Pivot)
+
+            geometry = new THREE.BoxGeometry( .15, .01875, .0375/2 );
+            material = new THREE.MeshBasicMaterial( { color: 'orange' } ); 
+            const lMiddleHand = new THREE.Mesh( geometry, material )
+            lMiddleHand.position.set(0,-.009375,.0)
+            lMiddleHand_Pivot.add(lMiddleHand)
+
+            const lTopHand_Pivot = new THREE.Object3D()
+            lTopHand_Pivot.position.set(0,-.009375,0)
+            let axeARM5 = new THREE.AxesHelper(.4)
+            lTopHand_Pivot.add(axeARM5)
+            lMiddleHand.add(lTopHand_Pivot)
+
+            geometry = new THREE.BoxGeometry( .15, .075, .0375/2 );
+            material = new THREE.MeshBasicMaterial( { color: 'yellow' } ); 
+            const lTopHand = new THREE.Mesh( geometry, material )
+            lTopHand.position.set(0,-.0375,.0)
+            lTopHand_Pivot.add(lTopHand)
+
+            leftArm.rotateZ(Math.PI/2)
+            lLowerArm_PIVOT.rotateZ(Math.PI/4)
+
+            lMiddleHand_Pivot.rotateX(-Math.PI/4)
+            lTopHand_Pivot.rotateX(0)
 
             //Para rodar: central.rotateY(angulo)
             let angle = 0  //3.5*Math.PI/4
@@ -306,7 +373,9 @@
                 /* lPedal.rotateY(.05)
                 rPedal.rotateY(.05)
                 rCirclePedal.rotateY(-.05)
-                lCirclePedal.rotateY(-.05) */
+                lCirclePedal.rotateY(-.05)*/
+
+                //bicycle.translateX(.01)
                 rotateLegAndPedal()
 
                 renderer.render(scene, ortoCcamera);
