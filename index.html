@@ -275,6 +275,11 @@
             lLowerLeg_PIVOT.add(axeLEG8)
 
 
+            geometry = new THREE.BoxGeometry( .15, .6, .35 );
+            material = new THREE.MeshBasicMaterial( { color: 'red' } ); 
+            const torso = new THREE.Mesh( geometry, material )
+            torso.position.set(0,.37,.0)
+            hip.add(torso)
 
             //Para rodar: central.rotateY(angulo)
             let angle = 0  //3.5*Math.PI/4
