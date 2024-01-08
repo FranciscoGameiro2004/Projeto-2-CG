@@ -457,12 +457,12 @@
             }
 
             function rotateLegAndPedal(){
-              lPedal.rotateY(.05)
-              rPedal.rotateY(.05)
-              rCirclePedal.rotateY(-.05)
-              lCirclePedal.rotateY(-.05)
+              lPedal.rotateY(2*Math.PI/100)
+              rPedal.rotateY(2*Math.PI/100)
+              rCirclePedal.rotateY(-2*Math.PI/100)
+              lCirclePedal.rotateY(-2*Math.PI/100)
 
-              currentPedalRotation += .05
+              currentPedalRotation += 2*Math.PI/100
               currentPedalRotation -= (2*Math.PI)*Math.floor(currentPedalRotation/(2*Math.PI))
 
               //console.log(currentPedalRotation)
