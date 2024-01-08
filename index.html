@@ -328,28 +328,28 @@
               let leftInc = {leg:.0, lowPiv:.0, feetPiv:.0}
               
               
-              if (currentPedalRotation>0*Math.PI/4 && currentPedalRotation<=1*Math.PI/4) {
+              if (currentPedalRotation>=0*Math.PI/4 && currentPedalRotation<1*Math.PI/4) {
                 rotationStage.left = 0
                 rotationStage.right = 4
-              } else if (currentPedalRotation>1*Math.PI/4 && currentPedalRotation<=2*Math.PI/4) {
+              } else if (currentPedalRotation>=1*Math.PI/4 && currentPedalRotation<2*Math.PI/4) {
                 rotationStage.left = 1
                 rotationStage.right = 5
-              } else if (currentPedalRotation>2*Math.PI/4 && currentPedalRotation<=3*Math.PI/4) {
+              } else if (currentPedalRotation>=2*Math.PI/4 && currentPedalRotation<3*Math.PI/4) {
                 rotationStage.left = 2
                 rotationStage.right = 6
-              } else if (currentPedalRotation>3*Math.PI/4 && currentPedalRotation<=4*Math.PI/4) {
+              } else if (currentPedalRotation>=3*Math.PI/4 && currentPedalRotation<4*Math.PI/4) {
                 rotationStage.left = 3
                 rotationStage.right = 7
-              } else if (currentPedalRotation>4*Math.PI/4 && currentPedalRotation<=5*Math.PI/4) {
+              } else if (currentPedalRotation>=4*Math.PI/4 && currentPedalRotation<5*Math.PI/4) {
                 rotationStage.left = 4
                 rotationStage.right = 0
-              } else if (currentPedalRotation>5*Math.PI/4 && currentPedalRotation<=6*Math.PI/4) {
+              } else if (currentPedalRotation>=5*Math.PI/4 && currentPedalRotation<6*Math.PI/4) {
                 rotationStage.left = 5
                 rotationStage.right = 1
-              } else if (currentPedalRotation>6*Math.PI/4 && currentPedalRotation<=7*Math.PI/4) {
+              } else if (currentPedalRotation>=6*Math.PI/4 && currentPedalRotation<7*Math.PI/4) {
                 rotationStage.left = 6
                 rotationStage.right = 2
-              } else if (currentPedalRotation>7*Math.PI/4 && currentPedalRotation<=8*Math.PI/4) {
+              } else if (currentPedalRotation>=7*Math.PI/4 && currentPedalRotation<8*Math.PI/4) {
                 rotationStage.left = 7
                 rotationStage.right = 3
               }
