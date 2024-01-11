@@ -343,15 +343,6 @@
             lTopHand.position.set(0,-.0375,.0)
             lTopHand_Pivot.add(lTopHand)
 
-            leftArm.rotateZ(Math.PI/4)
-            leftArm.rotateX(Math.PI/16)
-            lLowerArm_PIVOT.rotateZ(2*Math.PI/8)
-            lLowerArm_PIVOT.rotateY(-Math.PI/4)
-
-            lMiddleHand_Pivot.rotateX(-Math.PI/8)
-            lTopHand_Pivot.rotateX(0)
-
-
             //BRAÇO DIREITO
             const rightArm = new THREE.Object3D()
             rightArm.position.set(0,.25,0.175+.0375)
@@ -413,6 +404,16 @@
             rTopHand.position.set(0,-.0375,.0)
             rTopHand_Pivot.add(rTopHand)
 
+
+            //------ROTAÇÃO BRAÇOS-------------------   
+            leftArm.rotateZ(Math.PI/4)
+            leftArm.rotateX(Math.PI/16)
+            lLowerArm_PIVOT.rotateZ(2*Math.PI/8)
+            lLowerArm_PIVOT.rotateY(-Math.PI/4)
+
+            lMiddleHand_Pivot.rotateX(-Math.PI/8)
+            lTopHand_Pivot.rotateX(0)
+
             rightArm.rotateZ(Math.PI/4)
             rightArm.rotateX(-Math.PI/16)
             rLowerArm_PIVOT.rotateZ(2*Math.PI/8)
@@ -421,6 +422,49 @@
             rMiddleHand_Pivot.rotateX(Math.PI/8)
             rTopHand_Pivot.rotateX(0)
 
+            //15º - PI/12
+            /* leftArm.rotateZ(Math.PI/8)
+            leftArm.rotateX(1.5*Math.PI/16)
+            lLowerArm_PIVOT.rotateZ(3*Math.PI/8)
+            lLowerArm_PIVOT.rotateY(-Math.PI/4)
+
+            lMiddleHand_Pivot.rotateX(-Math.PI/8)
+            lTopHand_Pivot.rotateX(0)
+            lHand_PIVOT.rotateY(Math.PI/4)
+
+            rightArm.rotateZ(1.65*Math.PI/4)
+            rightArm.rotateX(-1.5*Math.PI/8)
+            rLowerArm_PIVOT.rotateZ(Math.PI/8)
+            rLowerArm_PIVOT.rotateY(1.5*Math.PI/12)
+            rLowerArm_PIVOT.rotateX(2*Math.PI/8)
+
+            rMiddleHand_Pivot.rotateX(Math.PI/8)
+            rTopHand_Pivot.rotateX(0)
+
+            structure3.rotation.y = Math.PI/12 */
+
+            // 30º - PI/6
+            /* leftArm.rotateZ(.6*Math.PI/8)
+            leftArm.rotateX(0.5*Math.PI/16)
+            lLowerArm_PIVOT.rotateZ(3.4*Math.PI/8)
+            lLowerArm_PIVOT.rotateY(0)
+
+            lMiddleHand_Pivot.rotateX(0)
+            lTopHand_Pivot.rotateX(0)
+            lHand_PIVOT.rotateY(0)
+
+            rightArm.rotateZ(1.75*Math.PI/4)
+            rightArm.rotateX(-0.75*Math.PI/8)
+            rLowerArm_PIVOT.rotateZ(-.025*Math.PI/8)
+            rLowerArm_PIVOT.rotateY(Math.PI/8)
+            rLowerArm_PIVOT.rotateX(Math.PI/8)
+
+            rMiddleHand_Pivot.rotateX(Math.PI/8)
+            rTopHand_Pivot.rotateX(-Math.PI/6)
+            rHand_PIVOT.rotateY(Math.PI/4)
+            rHand_PIVOT.rotateX(-.25*Math.PI/4)
+
+            structure3.rotation.y = Math.PI/6 */
 
 
             //PESCOÇO
