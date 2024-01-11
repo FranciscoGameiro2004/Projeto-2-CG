@@ -423,6 +423,49 @@
 
 
 
+            //PESCOÇO
+            
+            geometry = new THREE.BoxGeometry( .10,.0375, .10);
+            material = new THREE.MeshBasicMaterial( { color: 'orange' } ); 
+            const neck = new THREE.Mesh( geometry, material )
+            neck.position.set(0,.31875,0)
+            torso.add(neck)
+
+            //CABEÇA
+            geometry = new THREE.BoxGeometry( .20,.25, .20);
+            material = new THREE.MeshBasicMaterial( { color: 'yellow' } ); 
+            const head = new THREE.Mesh( geometry, material )
+            head.position.set(0,.1375,0)
+            neck.add(head)
+
+            //OLHOS
+            geometry = new THREE.BoxGeometry( .0125,.050, .025);
+            material = new THREE.MeshBasicMaterial( { color: 'black' } ); 
+            const leftEye = new THREE.Mesh( geometry, material )
+            leftEye.position.set(.10625,.03,-.045)
+            head.add(leftEye)
+
+            geometry = new THREE.BoxGeometry( .0125,.050, .025);
+            material = new THREE.MeshBasicMaterial( { color: 'black' } ); 
+            const rightEye = new THREE.Mesh( geometry, material )
+            rightEye.position.set(.10625,.03,.045)
+            head.add(rightEye)
+
+            //NARIZ
+            geometry = new THREE.BoxGeometry( .04,.060, .030);
+            material = new THREE.MeshBasicMaterial( { color: 'orange' } ); 
+            const nose = new THREE.Mesh( geometry, material )
+            nose.position.set(.09,-.015,0)
+            nose.rotation.z = Math.PI/8
+            head.add(nose)
+
+            //BOCA
+            geometry = new THREE.BoxGeometry( .0125,.02, .065);
+            material = new THREE.MeshBasicMaterial( { color: 'black' } ); 
+            const mouth = new THREE.Mesh( geometry, material )
+            mouth.position.set(.10625,-.08,.045)
+            head.add(mouth)
+
             //Para rodar: central.rotateY(angulo)
             let angle = 0  //3.5*Math.PI/4
             //let angle = 0
@@ -456,7 +499,7 @@
                 renderer.render(scene, ortoCcamera);
             }
 
-            function rotateLegAndPedal(){
+                        function rotateLegAndPedal(){
               lPedal.rotateY(2*Math.PI/100)
               rPedal.rotateY(2*Math.PI/100)
               rCirclePedal.rotateY(-2*Math.PI/100)
