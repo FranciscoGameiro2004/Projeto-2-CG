@@ -404,114 +404,6 @@
             rTopHand.position.set(0,-.0375,.0)
             rTopHand_Pivot.add(rTopHand)
 
-
-            //------ROTAÇÃO BRAÇOS-------------------  
-            // 0º: 0rad
-            leftArm.rotateZ(Math.PI/4)
-            leftArm.rotateX(Math.PI/16)
-            lLowerArm_PIVOT.rotateZ(2*Math.PI/8)
-            lLowerArm_PIVOT.rotateY(-Math.PI/4)
-
-            lMiddleHand_Pivot.rotateX(-Math.PI/8)
-            lTopHand_Pivot.rotateX(0)
-
-            rightArm.rotateZ(Math.PI/4)
-            rightArm.rotateX(-Math.PI/16)
-            rLowerArm_PIVOT.rotateZ(2*Math.PI/8)
-            rLowerArm_PIVOT.rotateY(Math.PI/4)
-
-            rMiddleHand_Pivot.rotateX(Math.PI/8)
-            rTopHand_Pivot.rotateX(0)
-
-            // 15º: PI/12rad
-            /* leftArm.rotateZ(Math.PI/8)
-            leftArm.rotateX(1.5*Math.PI/16)
-            lLowerArm_PIVOT.rotateZ(3*Math.PI/8)
-            lLowerArm_PIVOT.rotateY(-Math.PI/4)
-
-            lMiddleHand_Pivot.rotateX(-Math.PI/8)
-            lTopHand_Pivot.rotateX(0)
-            lHand_PIVOT.rotateY(Math.PI/4)
-
-            rightArm.rotateZ(1.65*Math.PI/4)
-            rightArm.rotateX(-1.5*Math.PI/8)
-            rLowerArm_PIVOT.rotateZ(Math.PI/8)
-            rLowerArm_PIVOT.rotateY(1.5*Math.PI/12)
-            rLowerArm_PIVOT.rotateX(2*Math.PI/8)
-
-            rMiddleHand_Pivot.rotateX(Math.PI/8)
-            rTopHand_Pivot.rotateX(0)
-
-            structure3.rotation.y = Math.PI/12 */
-
-            // 30º: PI/6 rad
-            /* leftArm.rotateZ(.6*Math.PI/8)
-            leftArm.rotateX(0.5*Math.PI/16)
-            lLowerArm_PIVOT.rotateZ(3.4*Math.PI/8)
-            lLowerArm_PIVOT.rotateY(0)
-
-            lMiddleHand_Pivot.rotateX(0)
-            lTopHand_Pivot.rotateX(0)
-            lHand_PIVOT.rotateY(0)
-
-            rightArm.rotateZ(1.75*Math.PI/4)
-            rightArm.rotateX(-0.75*Math.PI/8)
-            rLowerArm_PIVOT.rotateZ(-.025*Math.PI/8)
-            rLowerArm_PIVOT.rotateY(Math.PI/8)
-            rLowerArm_PIVOT.rotateX(Math.PI/8)
-
-            rMiddleHand_Pivot.rotateX(Math.PI/8)
-            rTopHand_Pivot.rotateX(-Math.PI/6)
-            rHand_PIVOT.rotateY(Math.PI/4)
-            rHand_PIVOT.rotateX(-.25*Math.PI/4)
-
-            structure3.rotation.y = Math.PI/6 */
-
-            // -15º: -PI/12rad
-            /* rightArm.rotateZ(Math.PI/8)
-            rightArm.rotateX(-1.5*Math.PI/16)
-            rLowerArm_PIVOT.rotateZ(3*Math.PI/8)
-            rLowerArm_PIVOT.rotateY(-Math.PI/4)
-
-            rMiddleHand_Pivot.rotateX(Math.PI/8)
-            rTopHand_Pivot.rotateX(0)
-            rHand_PIVOT.rotateY(Math.PI/4)
-
-            leftArm.rotateZ(1.65*Math.PI/4)
-            leftArm.rotateX(1.5*Math.PI/8)
-            lLowerArm_PIVOT.rotateZ(Math.PI/8)
-            lLowerArm_PIVOT.rotateY(-1.5*Math.PI/12)
-            lLowerArm_PIVOT.rotateX(-2*Math.PI/8)
-
-            lMiddleHand_Pivot.rotateX(-Math.PI/8)
-            lTopHand_Pivot.rotateX(0)
-
-            structure3.rotation.y = -Math.PI/12 */
-
-            // -30º: -PI/6 rad
-            /* rightArm.rotateZ(.6*Math.PI/8)
-            rightArm.rotateX(-0.5*Math.PI/16)
-            rLowerArm_PIVOT.rotateZ(3.4*Math.PI/8)
-            rLowerArm_PIVOT.rotateY(0)
-
-            rMiddleHand_Pivot.rotateX(0)
-            rTopHand_Pivot.rotateX(0)
-            rHand_PIVOT.rotateY(0)
-
-            leftArm.rotateZ(1.75*Math.PI/4)
-            leftArm.rotateX(0.75*Math.PI/8)
-            lLowerArm_PIVOT.rotateZ(-.025*Math.PI/8)
-            lLowerArm_PIVOT.rotateY(-Math.PI/8)
-            lLowerArm_PIVOT.rotateX(-Math.PI/8)
-
-            lMiddleHand_Pivot.rotateX(Math.PI/8)
-            lTopHand_Pivot.rotateX(-Math.PI/6)
-            lHand_PIVOT.rotateY(-Math.PI/4)
-            lHand_PIVOT.rotateX(.25*Math.PI/4)
-
-            structure3.rotation.y = -Math.PI/6 */
-
-
             //PESCOÇO
             
             geometry = new THREE.BoxGeometry( .10,.0375, .10);
@@ -569,7 +461,9 @@
                 lCirclePedal.rotateY(-angle)
 
             renderer.setAnimationLoop(render)
-            console.log(rHand_PIVOT.rotation);
+            
+            let a = Math.PI/96
+            let i = 1
             function render(){
               clock.old = clock.new
               clock.new = Date.now()
@@ -586,9 +480,21 @@
                 rotateLegAndPedal()
 
                 renderer.render(scene, ortoCcamera);
+
+                //DEMONSTRAÇÃO ROTAÇÃO DE EIXO
+                rotateAxle(a)
+                if (a >= Math.PI/6){
+                  i = -1
+                  console.log('I-');
+                } else if (a <= -Math.PI/6){
+                  i = 1
+                  console.log('I+');
+                }
+                a += i*Math.PI/96
+                console.log(a);
             }
 
-                        function rotateLegAndPedal(){
+            function rotateLegAndPedal(){
               lPedal.rotateY(2*Math.PI/100)
               rPedal.rotateY(2*Math.PI/100)
               rCirclePedal.rotateY(-2*Math.PI/100)
@@ -705,6 +611,79 @@
               
             }
 
+            function rotateAxle(angle){
+              if (angle == 0){
+                // 0º: 0rad
+                leftArm.rotation.set(0.13973562893888195,0.1383910125983522,0.7756979111217072)
+                lLowerArm_PIVOT.rotation.set(0.6154797086703874,-0.5235987755982988,0.9553166181245093)
+                lMiddleHand_Pivot.rotation.set(-0.39269908169872414,0,0)
+                lTopHand_Pivot.rotation.set(0,0,0)
+                lHand_PIVOT.rotation.set(0,0,0)
+                rightArm.rotation.set(-0.13973562893888195,-0.1383910125983522,0.7756979111217072)
+                rLowerArm_PIVOT.rotation.set(-0.6154797086703874,0.5235987755982988,0.9553166181245093)
+                rMiddleHand_Pivot.rotation.set(0.39269908169872414,0,0)
+                rTopHand_Pivot.rotation.set(0,0,0)
+                rHand_PIVOT.rotation.set(0,0,0)
+
+                structure3.rotation.y = 0
+              } else if (angle > 0 && angle <= Math.PI/12){
+                // 15º: PI/12
+                leftArm.rotation.set(0.2732458833982063,0.11131689054210762,0.3773797797097227)
+                lLowerArm_PIVOT.rotation.set(0.7458526607730736,-0.2740142038101564,1.285872200172834)
+                lMiddleHand_Pivot.rotation.set(-0.39269908169872414,0,0)
+                lTopHand_Pivot.rotation.set(0,0,0)
+                lHand_PIVOT.rotation.set(0,0.7853981633974484,0)
+                rightArm.rotation.set(-0.17942031304883935,-0.5641662804538249,1.2437808403128645)
+                rLowerArm_PIVOT.rotation.set(0.6995312149437698,0.547551256551187,0.024127433865992594)
+                rMiddleHand_Pivot.rotation.set(0.39269908169872414,0,0)
+                rTopHand_Pivot.rotation.set(0,0,0)
+                rHand_PIVOT.rotation.set(0,0,0)
+
+                structure3.rotation.y = Math.PI/12
+              } else if (angle > Math.PI/12 && angle <= Math.PI/6){
+                // 30º: PI/6
+                leftArm.rotation.set(0.09547888076095759,0.022883644148700113,0.2345261183743228)
+                lLowerArm_PIVOT.rotation.set(0,0,1.335176877775662)
+                lMiddleHand_Pivot.rotation.set(0,0,0)
+                lTopHand_Pivot.rotation.set(0,0,0)
+                lHand_PIVOT.rotation.set(0,0,0)
+                rightArm.rotation.set(-0.059111058836772465,-0.28870070079232735,1.3658518704644926)
+                rLowerArm_PIVOT.rotation.set(0.4248366767227627,0.35733564771389964,-0.16676706554025333)
+                rMiddleHand_Pivot.rotation.set(0.39269908169872414,0,0)
+                rTopHand_Pivot.rotation.set(-0.5235987755982987,0,0)
+                rHand_PIVOT.rotation.set(-0.27421801808929586,0.766363449082209,0.19267028931741573)
+
+                structure3.rotation.y = Math.PI/6
+              } else if (angle < 0 && angle >= -Math.PI/12) {
+                // -15º: -PI/12
+                leftArm.rotation.set(0.17942031304883935,0.5641662804538249,1.2437808403128645)
+                lLowerArm_PIVOT.rotation.set(-0.6995312149437698,-0.547551256551187,0.024127433865992594)
+                lMiddleHand_Pivot.rotation.set(-0.39269908169872414,0,0)
+                lTopHand_Pivot.rotation.set(0,0,0)
+                lHand_PIVOT.rotation.set(0,0,0)
+                rightArm.rotation.set(-0.2732458833982063,-0.11131689054210762,0.3773797797097227)
+                rLowerArm_PIVOT.rotation.set(0.7458526607730736,-0.2740142038101564,1.285872200172834)
+                rMiddleHand_Pivot.rotation.set(0.39269908169872414,0,0)
+                rTopHand_Pivot.rotation.set(0,0,0)
+                rHand_PIVOT.rotation.set(0,0.7853981633974484,0)
+
+                structure3.rotation.y = -Math.PI/12
+              } else if (angle < -Math.PI/12 && angle >= -Math.PI/6) {
+                // -30º: -PI/6
+                leftArm.rotation.set(0.059111058836772465,0.28870070079232735,1.3658518704644926)
+                lLowerArm_PIVOT.rotation.set(-0.4248366767227627,-0.35733564771389964,-0.16676706554025333)
+                lMiddleHand_Pivot.rotation.set(0.39269908169872414,0,0)
+                lTopHand_Pivot.rotation.set(-0.5235987755982987,0,0)
+                lHand_PIVOT.rotation.set(0.27421801808929586,-0.766363449082209,0.19267028931741573)
+                rightArm.rotation.set(-0.09547888076095759,-0.022883644148700113,0.2345261183743228)
+                rLowerArm_PIVOT.rotation.set(0,0,1.335176877775662)
+                rMiddleHand_Pivot.rotation.set(0,0,0)
+                rTopHand_Pivot.rotation.set(0,0,0)
+                rHand_PIVOT.rotation.set(0,0,0)
+
+                structure3.rotation.y = -Math.PI/6
+              }
+            }
     </script>
   </body>
 </html>
