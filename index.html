@@ -21,15 +21,14 @@
     </script>
   </head>
   <body>
-    
     <script type="module">
             import * as THREE from "three";
             import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
             const scene = new THREE.Scene();
 
-            const camera = new THREE.PerspectiveCamera(1,window.innerWidth/window.innerHeight,40,50);
-            camera.position.set(0, 0, .3);
+            const camera = new THREE.PerspectiveCamera(45,window.innerWidth/window.innerHeight,1,1000);
+            camera.position.set(4, 2, -2);
             camera.lookAt(new THREE.Vector3(0, 0, 0)); // point camera
 
             const ortoCcamera = new THREE.OrthographicCamera( window.innerWidth / - 2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / - 2, 1, 100000 );
@@ -447,6 +446,40 @@
             mouth.position.set(.10625,-.08,.045)
             head.add(mouth)
 
+
+            //---CENÁRIO---
+
+            //ESTRADA
+            geometry = new THREE.PlaneGeometry(16,6)
+            let roadTexture = new THREE.TextureLoader().load('Assets/road.png')
+            roadTexture.wrapS = THREE.RepeatWrapping;
+            roadTexture.wrapT = THREE.RepeatWrapping;
+            material = new THREE.MeshBasicMaterial( {color: "gray", side: THREE.DoubleSide, map: roadTexture} )
+            const road = new THREE.Mesh( geometry, material )
+            road.rotation.x=Math.PI/2
+            road.position.set(0,-.97,0)
+            scene.add(road)
+
+            //Passeios
+            let sidewalkTexture = new THREE.TextureLoader().load('Assets/sidewalk.jpg')
+            sidewalkTexture.wrapS = THREE.RepeatWrapping;
+            sidewalkTexture.wrapT = THREE.RepeatWrapping;
+            sidewalkTexture.repeat.set(5,1)
+
+            geometry = new THREE.BoxGeometry( 16,.25, 1.5);
+            material = new THREE.MeshBasicMaterial( { color: 'white', map: sidewalkTexture } ); 
+            const lSidewalk = new THREE.Mesh( geometry, material )
+            lSidewalk.position.set(0,-.85,-3.25)
+            scene.add(lSidewalk)
+
+            geometry = new THREE.BoxGeometry( 16,.25, 1.5);
+            material = new THREE.MeshBasicMaterial( { color: 'white', map: sidewalkTexture } ); 
+            const rSidewalk = new THREE.Mesh( geometry, material )
+            rSidewalk.position.set(0,-.85,3.25)
+            scene.add(rSidewalk)
+
+            //roadTexture.offset.set(0.5, 0)
+
             //Para rodar: central.rotateY(angulo)
             let angle = 0  //3.5*Math.PI/4
             //let angle = 0
@@ -464,6 +497,8 @@
             
             let a = Math.PI/96
             let i = 1
+
+            let roadGo = 0
             function render(){
               clock.old = clock.new
               clock.new = Date.now()
@@ -477,9 +512,12 @@
                 lCirclePedal.rotateY(-.05)*/
 
                 //bicycle.translateX(.01)
+                roadTexture.offset.set(roadGo, 0)
+                sidewalkTexture.offset.set(roadGo*5, 0)
+                roadGo += 2*Math.PI/2000
                 rotateLegAndPedal()
 
-                renderer.render(scene, ortoCcamera);
+                renderer.render(scene, camera);
 
                 //DEMONSTRAÇÃO ROTAÇÃO DE EIXO
                 rotateAxle(a)
@@ -685,5 +723,6 @@
               }
             }
     </script>
+    <a href="https://www.vecteezy.com/free-vector/road">Road Vectors by Vecteezy</a>
   </body>
 </html>
