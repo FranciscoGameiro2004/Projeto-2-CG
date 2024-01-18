@@ -520,7 +520,6 @@
                 sidewalkTexture.offset.set(roadGo*5, 0)
                 roadGo += 2*Math.PI/2000
                 rotateLegAndPedal()
-                rotateAxle(axleAngle)
 
                 if (move.left){
                   moveCyclist(-0.025)
@@ -541,6 +540,7 @@
                     releaseInc += 1
                   }
                 }
+
                 if (move.right){
                   moveCyclist(0.025)
                   if (releaseInc > 5) {
@@ -775,15 +775,17 @@
             document.onkeydown = function (e){
               if (e.key == 'a' || e.key == 'A'){
                 move.left = true
+                move.right = false
                 releaseInc = 0
                 release = true
-              }
-
-              if (e.key == 'd' || e.key == 'D'){
+              } else if (e.key == 'd' || e.key == 'D'){
+                move.left = false
                 move.right = true
                 releaseInc = 0
                 release = true
               }
+
+              
             }
 
             document.onkeyup = function (e){
