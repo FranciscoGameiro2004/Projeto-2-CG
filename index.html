@@ -284,8 +284,8 @@
             //BRAÇO ESQUERDO
             const leftArm = new THREE.Object3D()
             leftArm.position.set(0,.25,-0.175-.0375)
-            let axeARM1 = new THREE.AxesHelper(.8)
-            leftArm.add(axeARM1)
+            /* let axeARM1 = new THREE.AxesHelper(.8)
+            leftArm.add(axeARM1) */
             torso.add(leftArm)
 
             geometry = new THREE.BoxGeometry( .15, .4, .075 );
@@ -297,8 +297,8 @@
             const lLowerArm_PIVOT = new THREE.Object3D()
             lLowerArm_PIVOT.position.set(0,-.4,0)
             leftArm.add(lLowerArm_PIVOT)
-            let axeARM2 = new THREE.AxesHelper(.8)
-            lLowerArm_PIVOT.add(axeARM2)
+            /* let axeARM2 = new THREE.AxesHelper(.8)
+            lLowerArm_PIVOT.add(axeARM2) */
 
             geometry = new THREE.BoxGeometry( .15, .4, .075 );
             material = new THREE.MeshBasicMaterial( { color: 'blue' } ); 
@@ -307,8 +307,8 @@
             lLowerArm_PIVOT.add(lLowerArm)
 
             const lHand_PIVOT = new THREE.Object3D()
-            let axeARM3 = new THREE.AxesHelper(.8)
-            lHand_PIVOT.add(axeARM3)
+            /* let axeARM3 = new THREE.AxesHelper(.8)
+            lHand_PIVOT.add(axeARM3) */
             lHand_PIVOT.position.set(0,-.2,0)
             lLowerArm.add(lHand_PIVOT)
 
@@ -320,8 +320,8 @@
 
             const lMiddleHand_Pivot = new THREE.Object3D()
             lMiddleHand_Pivot.position.set(0,-.0375,0)
-            let axeARM4 = new THREE.AxesHelper(.4)
-            lMiddleHand_Pivot.add(axeARM4)
+            /* let axeARM4 = new THREE.AxesHelper(.4)
+            lMiddleHand_Pivot.add(axeARM4) */
             lPalmHand.add(lMiddleHand_Pivot)
 
             geometry = new THREE.BoxGeometry( .15, .01875, .0375/2 );
@@ -332,8 +332,8 @@
 
             const lTopHand_Pivot = new THREE.Object3D()
             lTopHand_Pivot.position.set(0,-.009375,0)
-            let axeARM5 = new THREE.AxesHelper(.4)
-            lTopHand_Pivot.add(axeARM5)
+            /* let axeARM5 = new THREE.AxesHelper(.4)
+            lTopHand_Pivot.add(axeARM5) */
             lMiddleHand.add(lTopHand_Pivot)
 
             geometry = new THREE.BoxGeometry( .15, .075, .0375/2 );
@@ -345,8 +345,8 @@
             //BRAÇO DIREITO
             const rightArm = new THREE.Object3D()
             rightArm.position.set(0,.25,0.175+.0375)
-            let axeARM6 = new THREE.AxesHelper(.8)
-            rightArm.add(axeARM6)
+            /* let axeARM6 = new THREE.AxesHelper(.8)
+            rightArm.add(axeARM6) */
             torso.add(rightArm)
 
             geometry = new THREE.BoxGeometry( .15, .4, .075 );
@@ -358,8 +358,8 @@
             const rLowerArm_PIVOT = new THREE.Object3D()
             rLowerArm_PIVOT.position.set(0,-.4,0)
             rightArm.add(rLowerArm_PIVOT)
-            let axeARM7 = new THREE.AxesHelper(.8)
-            rLowerArm_PIVOT.add(axeARM7)
+            /* let axeARM7 = new THREE.AxesHelper(.8)
+            rLowerArm_PIVOT.add(axeARM7) */
 
             geometry = new THREE.BoxGeometry( .15, .4, .075 );
             material = new THREE.MeshBasicMaterial( { color: 'blue' } ); 
@@ -368,8 +368,8 @@
             rLowerArm_PIVOT.add(rLowerArm)
 
             const rHand_PIVOT = new THREE.Object3D()
-            let axeARM8 = new THREE.AxesHelper(.8)
-            rHand_PIVOT.add(axeARM8)
+            /* let axeARM8 = new THREE.AxesHelper(.8)
+            rHand_PIVOT.add(axeARM8) */
             rHand_PIVOT.position.set(0,-.2,0)
             rLowerArm.add(rHand_PIVOT)
 
@@ -381,8 +381,8 @@
 
             const rMiddleHand_Pivot = new THREE.Object3D()
             rMiddleHand_Pivot.position.set(0,-.0375,0)
-            let axeARM9 = new THREE.AxesHelper(.4)
-            rMiddleHand_Pivot.add(axeARM9)
+            /* let axeARM9 = new THREE.AxesHelper(.4)
+            rMiddleHand_Pivot.add(axeARM9) */
             rPalmHand.add(rMiddleHand_Pivot)
 
             geometry = new THREE.BoxGeometry( .15, .01875, .0375/2 );
@@ -393,8 +393,8 @@
 
             const rTopHand_Pivot = new THREE.Object3D()
             rTopHand_Pivot.position.set(0,-.009375,0)
-            let axeARM10 = new THREE.AxesHelper(.4)
-            rTopHand_Pivot.add(axeARM5)
+            /* let axeARM10 = new THREE.AxesHelper(.4)
+            rTopHand_Pivot.add(axeARM5) */
             rMiddleHand.add(rTopHand_Pivot)
 
             geometry = new THREE.BoxGeometry( .15, .075, .0375/2 );
@@ -499,6 +499,10 @@
             let i = 1
 
             let roadGo = 0
+            let axleAngle = 0
+            let releaseInc = 6
+            let release = false
+            let move = {left: false, right: false}
             function render(){
               clock.old = clock.new
               clock.new = Date.now()
@@ -516,11 +520,50 @@
                 sidewalkTexture.offset.set(roadGo*5, 0)
                 roadGo += 2*Math.PI/2000
                 rotateLegAndPedal()
+                rotateAxle(axleAngle)
+
+                if (move.left){
+                  moveCyclist(-0.025)
+                  if (releaseInc > 5) {
+                    rotateAxle(Math.PI/6)
+                    release = false
+                  } else {
+                    rotateAxle(Math.PI/12)
+                    releaseInc += 1
+                  }
+                } else {
+                  console.log('AAA');
+                  if (releaseInc > 5) {
+                    rotateAxle(0)
+                    release = false
+                  } else {
+                    rotateAxle(Math.PI/12)
+                    releaseInc += 1
+                  }
+                }
+                if (move.right){
+                  moveCyclist(0.025)
+                  if (releaseInc > 5) {
+                    rotateAxle(-Math.PI/6)
+                    release = false
+                  } else {
+                    rotateAxle(-Math.PI/12)
+                    releaseInc += 1
+                  }
+                } else {
+                  if (releaseInc > 5) {
+                    rotateAxle(0)
+                    release = false
+                  } else {
+                    rotateAxle(-Math.PI/12)
+                    releaseInc += 1
+                  }
+                }
 
                 renderer.render(scene, camera);
 
                 //DEMONSTRAÇÃO ROTAÇÃO DE EIXO
-                rotateAxle(a)
+                /* rotateAxle(a)
                 if (a >= Math.PI/6){
                   i = -1
                   console.log('I-');
@@ -529,7 +572,7 @@
                   console.log('I+');
                 }
                 a += i*Math.PI/96
-                console.log(a);
+                console.log(a); */
             }
 
             function rotateLegAndPedal(){
@@ -720,6 +763,40 @@
                 rHand_PIVOT.rotation.set(0,0,0)
 
                 structure3.rotation.y = -Math.PI/6
+              }
+            }
+            
+            function moveCyclist(inc){
+              if (bicycle.position.z < 2.25 && bicycle.position.z > -2.25) {
+                bicycle.position.z += inc
+              }
+            }
+
+            document.onkeydown = function (e){
+              if (e.key == 'a' || e.key == 'A'){
+                move.left = true
+                releaseInc = 0
+                release = true
+              }
+
+              if (e.key == 'd' || e.key == 'D'){
+                move.right = true
+                releaseInc = 0
+                release = true
+              }
+            }
+
+            document.onkeyup = function (e){
+              if (e.key == 'a' || e.key == 'A'){
+                move.left = false
+                releaseInc = 0
+                release = true
+              }
+
+              if (e.key == 'd' || e.key == 'D'){
+                move.right = false
+                releaseInc = 0
+                release = true
               }
             }
     </script>
