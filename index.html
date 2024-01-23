@@ -164,7 +164,7 @@
             lCirclePedal.position.set(0,.4,0)
             lPedalProtect.add( lCirclePedal );
 
-            geometry = new THREE.CylinderGeometry( .1, .1, .04, 8 ); 
+                        geometry = new THREE.CylinderGeometry( .1, .1, .04, 8 ); 
             material = new THREE.MeshBasicMaterial( {color: 0xff0000} ); 
             const rCirclePedal = new THREE.Mesh( geometry, material );
             rCirclePedal.rotateX(Math.PI/2)
@@ -200,8 +200,14 @@
 
             person.position.set(-.7,.4,0)
 
+            let hipDenimTexture = new THREE.TextureLoader().load('Assets/denim.jpg')
+            let upperLegDenimTexture = new THREE.TextureLoader().load('Assets/denim.jpg')
+            upperLegDenimTexture.repeat.set(0.25,1)
+            let lowerLegDenimTexture = new THREE.TextureLoader().load('Assets/denim.jpg')
+            lowerLegDenimTexture.repeat.set(0.25,1)
+
             geometry = new THREE.BoxGeometry( .15, .15, .35 );
-            material = new THREE.MeshBasicMaterial( { color: 'gray' } ); 
+            material = new THREE.MeshBasicMaterial( { map:hipDenimTexture } ); 
             const hip = new THREE.Mesh( geometry, material )
             hip.position.set(.1,.05,.0)
             person.add(hip)
@@ -211,7 +217,7 @@
             hip.add(leftLeg)
 
             geometry = new THREE.BoxGeometry( .15, .6, .10 );
-            material = new THREE.MeshBasicMaterial( { color: 'magenta' } ); 
+            material = new THREE.MeshBasicMaterial( { map: upperLegDenimTexture } ); 
             const lUpperLeg = new THREE.Mesh( geometry, material )
             lUpperLeg.position.set(0,-.28,-.12)
             leftLeg.add(lUpperLeg)
@@ -223,7 +229,7 @@
             lUpperLeg.add(axeLEG1) */
 
             geometry = new THREE.BoxGeometry( .15, .5, .10 );
-            material = new THREE.MeshBasicMaterial( { color: 'orange' } ); 
+            material = new THREE.MeshBasicMaterial( { map:lowerLegDenimTexture } ); 
             const lLowerLeg = new THREE.Mesh( geometry, material )
             lLowerLeg.position.set(0,-.25,0)
             lLowerLeg_PIVOT.add(lLowerLeg)
@@ -249,7 +255,7 @@
             hip.add(rightLeg)
 
             geometry = new THREE.BoxGeometry( .15, .6, .10 );
-            material = new THREE.MeshBasicMaterial( { color: 'magenta' } ); 
+            material = new THREE.MeshBasicMaterial( { map: upperLegDenimTexture } ); 
             const rUpperLeg = new THREE.Mesh( geometry, material )
             rUpperLeg.position.set(0,-.28,.12)
             rightLeg.add(rUpperLeg)
@@ -261,7 +267,7 @@
             rUpperLeg.add(axeLEG5) */
 
             geometry = new THREE.BoxGeometry( .15, .5, .10 );
-            material = new THREE.MeshBasicMaterial( { color: 'orange' } ); 
+            material = new THREE.MeshBasicMaterial( { map:lowerLegDenimTexture } ); 
             const rLowerLeg = new THREE.Mesh( geometry, material )
             rLowerLeg.position.set(0,-.25,0)
             rLowerLeg_PIVOT.add(rLowerLeg)
@@ -282,9 +288,12 @@
             /* let axeLEG8 = new THREE.AxesHelper(2)
             lLowerLeg_PIVOT.add(axeLEG8) */
 
+            let torsoTshirtTexture = new THREE.TextureLoader().load('Assets/tshirt.jpg')
+            let upperTshirtTexture = new THREE.TextureLoader().load('Assets/tshirt.jpg')
+
             //TRONCO
             geometry = new THREE.BoxGeometry( .15, .6, .35 );
-            material = new THREE.MeshBasicMaterial( { color: 'red' } ); 
+            material = new THREE.MeshBasicMaterial( { color: 'silver', map: torsoTshirtTexture } ); 
             const torso = new THREE.Mesh( geometry, material )
             torso.position.set(0,.37,.0)
             hip.add(torso)
@@ -298,7 +307,7 @@
             torso.add(leftArm)
 
             geometry = new THREE.BoxGeometry( .15, .4, .075 );
-            material = new THREE.MeshBasicMaterial( { color: 'GREY' } ); 
+            material = new THREE.MeshBasicMaterial( { color: 'silver', map: upperTshirtTexture } ); 
             const lUpperArm = new THREE.Mesh( geometry, material )
             lUpperArm.position.set(0,-.2,.0)
             leftArm.add(lUpperArm)
@@ -310,7 +319,7 @@
             lLowerArm_PIVOT.add(axeARM2) */
 
             geometry = new THREE.BoxGeometry( .15, .4, .075 );
-            material = new THREE.MeshBasicMaterial( { color: 'blue' } ); 
+            material = new THREE.MeshBasicMaterial( { color: 'wheat' } ); 
             const lLowerArm = new THREE.Mesh( geometry, material )
             lLowerArm.position.set(0,-.2,.0)
             lLowerArm_PIVOT.add(lLowerArm)
@@ -322,7 +331,7 @@
             lLowerArm.add(lHand_PIVOT)
 
             geometry = new THREE.BoxGeometry( .15, .075, .0375/2 );
-            material = new THREE.MeshBasicMaterial( { color: 'yellow' } ); 
+            material = new THREE.MeshBasicMaterial( { color: 'wheat' } ); 
             const lPalmHand = new THREE.Mesh( geometry, material )
             lPalmHand.position.set(0,-.0375,.0)
             lHand_PIVOT.add(lPalmHand)
@@ -334,7 +343,7 @@
             lPalmHand.add(lMiddleHand_Pivot)
 
             geometry = new THREE.BoxGeometry( .15, .01875, .0375/2 );
-            material = new THREE.MeshBasicMaterial( { color: 'orange' } ); 
+            material = new THREE.MeshBasicMaterial( { color: 'wheat' } ); 
             const lMiddleHand = new THREE.Mesh( geometry, material )
             lMiddleHand.position.set(0,-.009375,.0)
             lMiddleHand_Pivot.add(lMiddleHand)
@@ -346,7 +355,7 @@
             lMiddleHand.add(lTopHand_Pivot)
 
             geometry = new THREE.BoxGeometry( .15, .075, .0375/2 );
-            material = new THREE.MeshBasicMaterial( { color: 'yellow' } ); 
+            material = new THREE.MeshBasicMaterial( { color: 'wheat' } ); 
             const lTopHand = new THREE.Mesh( geometry, material )
             lTopHand.position.set(0,-.0375,.0)
             lTopHand_Pivot.add(lTopHand)
@@ -359,7 +368,7 @@
             torso.add(rightArm)
 
             geometry = new THREE.BoxGeometry( .15, .4, .075 );
-            material = new THREE.MeshBasicMaterial( { color: 'GREY' } ); 
+            material = new THREE.MeshBasicMaterial( { color: 'silver', map: upperTshirtTexture } ); 
             const rUpperArm = new THREE.Mesh( geometry, material )
             rUpperArm.position.set(0,-.2,.0)
             rightArm.add(rUpperArm)
@@ -371,7 +380,7 @@
             rLowerArm_PIVOT.add(axeARM7) */
 
             geometry = new THREE.BoxGeometry( .15, .4, .075 );
-            material = new THREE.MeshBasicMaterial( { color: 'blue' } ); 
+            material = new THREE.MeshBasicMaterial( { color: 'wheat' } ); 
             const rLowerArm = new THREE.Mesh( geometry, material )
             rLowerArm.position.set(0,-.2,.0)
             rLowerArm_PIVOT.add(rLowerArm)
@@ -383,7 +392,7 @@
             rLowerArm.add(rHand_PIVOT)
 
             geometry = new THREE.BoxGeometry( .15, .075, .0375/2 );
-            material = new THREE.MeshBasicMaterial( { color: 'yellow' } ); 
+            material = new THREE.MeshBasicMaterial( { color: 'wheat' } ); 
             const rPalmHand = new THREE.Mesh( geometry, material )
             rPalmHand.position.set(0,-.0375,.0)
             rHand_PIVOT.add(rPalmHand)
@@ -395,7 +404,7 @@
             rPalmHand.add(rMiddleHand_Pivot)
 
             geometry = new THREE.BoxGeometry( .15, .01875, .0375/2 );
-            material = new THREE.MeshBasicMaterial( { color: 'orange' } ); 
+            material = new THREE.MeshBasicMaterial( { color: 'wheat' } ); 
             const rMiddleHand = new THREE.Mesh( geometry, material )
             rMiddleHand.position.set(0,-.009375,.0)
             rMiddleHand_Pivot.add(rMiddleHand)
@@ -407,7 +416,7 @@
             rMiddleHand.add(rTopHand_Pivot)
 
             geometry = new THREE.BoxGeometry( .15, .075, .0375/2 );
-            material = new THREE.MeshBasicMaterial( { color: 'yellow' } ); 
+            material = new THREE.MeshBasicMaterial( { color: 'wheat' } ); 
             const rTopHand = new THREE.Mesh( geometry, material )
             rTopHand.position.set(0,-.0375,.0)
             rTopHand_Pivot.add(rTopHand)
@@ -415,14 +424,14 @@
             //PESCOÇO
             
             geometry = new THREE.BoxGeometry( .10,.0375, .10);
-            material = new THREE.MeshBasicMaterial( { color: 'orange' } ); 
+            material = new THREE.MeshBasicMaterial( { color: 'wheat' } ); 
             const neck = new THREE.Mesh( geometry, material )
             neck.position.set(0,.31875,0)
             torso.add(neck)
 
             //CABEÇA
             geometry = new THREE.BoxGeometry( .20,.25, .20);
-            material = new THREE.MeshBasicMaterial( { color: 'yellow' } ); 
+            material = new THREE.MeshBasicMaterial( { color: 'wheat' } ); 
             const head = new THREE.Mesh( geometry, material )
             head.position.set(0,.1375,0)
             neck.add(head)
@@ -790,6 +799,7 @@
                 move.left = true
                 move.right = false
                 incOP = 0
+                move.transitionLeft = false
               } else if (e.key == 'd' || e.key == 'D'){
                 move.left = false
                 move.right = true
@@ -817,5 +827,7 @@
             }
     </script>
     <a href="https://www.vecteezy.com/free-vector/road">Road Vectors by Vecteezy</a>
+    <a href="https://www.vecteezy.com/free-photos">Free Stock photos by Vecteezy</a>
+    <a href="https://www.freepik.com/free-photo/blue-texture_1006119.htm#query=blue%20fabric%20texture&position=0&from_view=search&track=ais&uuid=12e25027-1947-49ab-a7ef-f6f5d409ed12">Image by freestockcenter on Freepik</a>
   </body>
 </html>
