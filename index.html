@@ -44,13 +44,17 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
             renderer.setClearColor("#333333");
             renderer.shadowMap.enabled = true
-            renderer.shadowMap.ytpe = THREE.PCFSoftShadowMap
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap
             document.body.appendChild(renderer.domElement);
 
             const light = new THREE.DirectionalLight( 0xffffff, 5 );
-            light.position.set( 4, 10, 0 ); //default; light shining from top
-            light.castShadow = true; // default false
-            scene.add( light );
+            light.position.set( 2, 5, 0 ); //default; light shining from top
+            light.shadow.mapSize.width = 512
+            light.shadow.mapSize.height = 512
+            light.shadow.camera.near = 0.5
+            light.shadow.camera.far = 100
+            light.target.position.set( 0, 0, 0 );
+            scene.add( light, light.target );
 
             const controls = new OrbitControls(camera, renderer.domElement);
 
@@ -66,165 +70,192 @@
             scene.add(bicycle)
             
 
-            let geometry = new THREE.BoxGeometry( .9, .05, .05 ); 
-            let material = new THREE.MeshToonMaterial( { map: bikeTexture } ); 
+            let geometry = new THREE.BoxGeometry( .9, .07, .05 ); 
+            let material = new THREE.MeshPhongMaterial( { map: bikeTexture } ); 
             const structure1 = new THREE.Mesh( geometry, material )
             structure1.castShadow = true
             bicycle.add( structure1 );
             structure1.rotateZ(Math.PI/12)
 
             geometry = new THREE.BoxGeometry( .5, .05, .05 ); 
-            material = new THREE.MeshToonMaterial( { map: bikeTexture } ); 
+            material = new THREE.MeshPhongMaterial( { map: bikeTexture } ); 
             const structure2 = new THREE.Mesh( geometry, material )
+            structure2.castShadow = true
             structure1.add( structure2 );
             structure2.position.set(-.48,.2,0)
             structure2.rotateZ(3*Math.PI/2)
 
             geometry = new THREE.BoxGeometry( 1.3, .05, .05 ); 
-            material = new THREE.MeshToonMaterial( { map: bikeTexture } ); 
+            material = new THREE.MeshPhongMaterial( { map: bikeTexture } ); 
             const structure3 = new THREE.Mesh( geometry, material )
+            structure3.castShadow = true
             structure1.add( structure3 );
             structure3.position.set(.4,.10,0)
             structure3.rotateZ(3*Math.PI/2)
 
             geometry = new THREE.BoxGeometry( .1, .3, .12 );
-            material = new THREE.MeshToonMaterial( { color: 'maroon' } ); 
+            material = new THREE.MeshPhongMaterial( { color: 'maroon' } ); 
             const seat = new THREE.Mesh( geometry, material )
+            seat.castShadow = true
             seat.position.set(-.3,0,0)
             structure2.add(seat)
 
             geometry = new THREE.CylinderGeometry( .1, .1, .1, 8 ); 
-            material = new THREE.MeshToonMaterial( {color: 'silver'} ); 
+            material = new THREE.MeshPhongMaterial( {color: 'silver'} ); 
             const central = new THREE.Mesh( geometry, material );
+            central.castShadow = true
             central.rotateZ(Math.PI/2)
             central.position.set(-.6,0,0)
             structure3.add( central );
 
             geometry = new THREE.BoxGeometry( .05, .05, .6 );
-            material = new THREE.MeshToonMaterial( { color: 'black' } ); 
+            material = new THREE.MeshPhongMaterial( { color: 'black' } ); 
             const stick = new THREE.Mesh( geometry, material )
+            stick.castShadow = true
             central.add(stick)
 
             geometry = new THREE.BoxGeometry( .05, .05, .2 );
-            material = new THREE.MeshToonMaterial( { color: 'grey' } ); 
+            material = new THREE.MeshPhongMaterial( { color: 'grey' } ); 
             const lStick = new THREE.Mesh( geometry, material )
+            lStick.castShadow = true
             lStick.position.set(-.07,0,-.32)
             lStick.rotateY(Math.PI/3)
             stick.add(lStick)
 
             geometry = new THREE.BoxGeometry( .05, .05, .2 );
-            material = new THREE.MeshToonMaterial( { color: 'grey' } ); 
+            material = new THREE.MeshPhongMaterial( { color: 'grey' } ); 
             const rStick = new THREE.Mesh( geometry, material )
+            rStick.castShadow = true
             rStick.position.set(-.07,0,.32)
             rStick.rotateY(-Math.PI/3)
             stick.add(rStick)
 
             geometry = new THREE.CylinderGeometry( .45, .45, .04, 12 );
             geometry = new THREE.TorusGeometry(.45, 0.025,8,100)
-            material = new THREE.MeshToonMaterial( {color: 0x000000} ); 
+            material = new THREE.MeshPhongMaterial( {color: 0x000000} ); 
             const tireF = new THREE.Mesh( geometry, material );
+            tireF.castShadow = true
             //tireF.rotateX(Math.PI/2)
             tireF.position.set(.75,0,0)
             structure3.add( tireF );
 
             geometry = new THREE.BoxGeometry(.03, .9, .03)
-            material = new THREE.MeshToonMaterial( {color: "grey"} );
+            material = new THREE.MeshPhongMaterial( {color: "grey"} );
             const fTireSupport1 = new THREE.Mesh(geometry, material)
             tireF.add(fTireSupport1)
+            fTireSupport1.castShadow = true
             const fTireSupport2 = new THREE.Mesh(geometry, material)
             tireF.add(fTireSupport2)
+            fTireSupport2.castShadow = true
             fTireSupport2.rotateZ(Math.PI/4)
             const fTireSupport3 = new THREE.Mesh(geometry, material)
             tireF.add(fTireSupport3)
+            fTireSupport3.castShadow = true
             fTireSupport3.rotateZ(Math.PI/2)
             const fTireSupport4 = new THREE.Mesh(geometry, material)
             tireF.add(fTireSupport4)
+            fTireSupport4.castShadow = true
             fTireSupport4.rotateZ(3*Math.PI/4)
 
             geometry = new THREE.BoxGeometry( .05, .65, .05 );
-            material = new THREE.MeshToonMaterial( { map: bikeTexture } ); 
+            material = new THREE.MeshPhongMaterial( { map: bikeTexture } ); 
             const lProtection = new THREE.Mesh( geometry, material )
+            lProtection.castShadow = true
             lProtection.position.set(.28,-.2,.05)
             lProtection.rotateZ(Math.PI/5.5)
             structure2.add(lProtection)
 
             geometry = new THREE.BoxGeometry( .05, .65, .05 );
-            material = new THREE.MeshToonMaterial( { map: bikeTexture } ); 
+            material = new THREE.MeshPhongMaterial( { map: bikeTexture } ); 
             const rProtection = new THREE.Mesh( geometry, material )
+            rProtection.castShadow = true
             rProtection.position.set(.28,-.2,-.05)
             rProtection.rotateZ(Math.PI/5.5)
             structure2.add(rProtection)
 
             geometry = new THREE.CylinderGeometry( .45, .45, .04, 12 )
             geometry = new THREE.TorusGeometry(.45, 0.025,8,100) 
-            material = new THREE.MeshToonMaterial( {color: 0x000000} ); 
+            material = new THREE.MeshPhongMaterial( {color: 0x000000} ); 
             const tireB = new THREE.Mesh( geometry, material );
+            tireB.castShadow = true
             tireB.position.set(0,-.35,-.05)
             lProtection.add( tireB );
 
             geometry = new THREE.BoxGeometry(.03, .9, .03)
-            material = new THREE.MeshToonMaterial( {color: "grey"} );
+            material = new THREE.MeshPhongMaterial( {color: "grey"} );
             const bTireSupport1 = new THREE.Mesh(geometry, material)
             tireB.add(bTireSupport1)
+            bTireSupport1.castShadow = true
             const bTireSupport2 = new THREE.Mesh(geometry, material)
             tireB.add(bTireSupport2)
+            bTireSupport2.castShadow = true
             bTireSupport2.rotateZ(Math.PI/4)
             const bTireSupport3 = new THREE.Mesh(geometry, material)
             tireB.add(bTireSupport3)
+            bTireSupport3.castShadow = true
             bTireSupport3.rotateZ(Math.PI/2)
             const bTireSupport4 = new THREE.Mesh(geometry, material)
             tireB.add(bTireSupport4)
+            bTireSupport4.castShadow = true
             bTireSupport4.rotateZ(3*Math.PI/4)
 
             geometry = new THREE.BoxGeometry( .05, .85, .05 );
-            material = new THREE.MeshToonMaterial( { map: bikeTexture } ); 
+            material = new THREE.MeshPhongMaterial( { map: bikeTexture } ); 
             const lPedalProtect = new THREE.Mesh( geometry, material )
+            lPedalProtect.castShadow = true
             lPedalProtect.position.set(.55,-.15,-.05)
             lPedalProtect.rotateZ(-Math.PI/12)
             structure2.add(lPedalProtect)
 
             geometry = new THREE.BoxGeometry( .05, .85, .05 );
-            material = new THREE.MeshToonMaterial( { map: bikeTexture } ); 
+            material = new THREE.MeshPhongMaterial( { map: bikeTexture } ); 
             const rPedalProtect = new THREE.Mesh( geometry, material )
+            rPedalProtect.castShadow = true
             rPedalProtect.position.set(.55,-.15,.05)
             rPedalProtect.rotateZ(-Math.PI/12)
             structure2.add(rPedalProtect)
 
             geometry = new THREE.CylinderGeometry( .1, .1, .04, 8 ); 
-            material = new THREE.MeshToonMaterial( {color: 'silver'} ); 
+            material = new THREE.MeshPhongMaterial( {color: 'silver'} ); 
             const lCirclePedal = new THREE.Mesh( geometry, material );
+            lCirclePedal.castShadow = true
             lCirclePedal.rotateX(Math.PI/2)
             lCirclePedal.position.set(0,.4,0)
             lPedalProtect.add( lCirclePedal );
 
-                        geometry = new THREE.CylinderGeometry( .1, .1, .04, 8 ); 
-            material = new THREE.MeshToonMaterial( {color: 'silver'} ); 
+            geometry = new THREE.CylinderGeometry( .1, .1, .04, 8 ); 
+            material = new THREE.MeshPhongMaterial( {color: 'silver'} ); 
             const rCirclePedal = new THREE.Mesh( geometry, material );
+            rCirclePedal.castShadow = true
             rCirclePedal.rotateX(Math.PI/2)
             rCirclePedal.position.set(0,.4,0)
             rPedalProtect.add( rCirclePedal );
 
             geometry = new THREE.BoxGeometry( .2, .025, .05 );
-            material = new THREE.MeshToonMaterial( { color: 'grey' } ); 
+            material = new THREE.MeshPhongMaterial( { color: 'grey' } ); 
             const rPedalLeg = new THREE.Mesh( geometry, material )
+            rPedalLeg.castShadow = true
             rPedalLeg.position.set(.1,.025,.0)
             rCirclePedal.add(rPedalLeg)
 
             geometry = new THREE.BoxGeometry( .2, .025, .05 );
-            material = new THREE.MeshToonMaterial( { color: 'grey' } ); 
+            material = new THREE.MeshPhongMaterial( { color: 'grey' } ); 
             const lPedalLeg = new THREE.Mesh( geometry, material )
+            lPedalLeg.castShadow = true
             lPedalLeg.position.set(-.1,-.025,.0)
             lCirclePedal.add(lPedalLeg)
 
             geometry = new THREE.BoxGeometry( .05, .1, .1 );
-            material = new THREE.MeshToonMaterial( { color: 'black' } ); 
+            material = new THREE.MeshPhongMaterial( { color: 'black' } ); 
             const lPedal = new THREE.Mesh( geometry, material )
+            lPedal.castShadow = true
             lPedal.position.set(-.1,-.05,.0)
             lPedalLeg.add(lPedal)
 
             geometry = new THREE.BoxGeometry( .05, .1, .1 );
-            material = new THREE.MeshToonMaterial( { color: 'black' } ); 
+            material = new THREE.MeshPhongMaterial( { color: 'black' } ); 
             const rPedal = new THREE.Mesh( geometry, material )
+            rPedal.castShadow = true
             rPedal.position.set(.1,.05,.0)
             rPedalLeg.add(rPedal)
 
@@ -240,8 +271,9 @@
             lowerLegDenimTexture.repeat.set(0.25,1)
 
             geometry = new THREE.BoxGeometry( .15, .15, .35 );
-            material = new THREE.MeshToonMaterial( { map:hipDenimTexture } ); 
+            material = new THREE.MeshLambertMaterial( { map:hipDenimTexture } ); 
             const hip = new THREE.Mesh( geometry, material )
+            hip.castShadow = true
             hip.position.set(.1,.05,.0)
             person.add(hip)
 
@@ -250,8 +282,9 @@
             hip.add(leftLeg)
 
             geometry = new THREE.BoxGeometry( .15, .6, .10 );
-            material = new THREE.MeshToonMaterial( { map: upperLegDenimTexture } ); 
+            material = new THREE.MeshLambertMaterial( { map: upperLegDenimTexture } ); 
             const lUpperLeg = new THREE.Mesh( geometry, material )
+            lUpperLeg.castShadow = true
             lUpperLeg.position.set(0,-.28,-.12)
             leftLeg.add(lUpperLeg)
 
@@ -262,8 +295,9 @@
             lUpperLeg.add(axeLEG1) */
 
             geometry = new THREE.BoxGeometry( .15, .5, .10 );
-            material = new THREE.MeshToonMaterial( { map:lowerLegDenimTexture } ); 
+            material = new THREE.MeshLambertMaterial( { map:lowerLegDenimTexture } ); 
             const lLowerLeg = new THREE.Mesh( geometry, material )
+            lLowerLeg.castShadow = true
             lLowerLeg.position.set(0,-.25,0)
             lLowerLeg_PIVOT.add(lLowerLeg)
             /* let axeLEG2 = new THREE.AxesHelper(2)
@@ -276,8 +310,9 @@
             lFeet_PIVOT.add(axeLEG3) */
 
             geometry = new THREE.BoxGeometry( .25, .10, .10 );
-            material = new THREE.MeshToonMaterial( { color: 'dimgray' } ); 
+            material = new THREE.MeshLambertMaterial( { color: 'dimgray' } ); 
             const lFeet = new THREE.Mesh( geometry, material )
+            lFeet.castShadow = true
             lFeet.position.set(.05,-.05,0)
             lFeet_PIVOT.add(lFeet)
             /* let axeLEG4 = new THREE.AxesHelper(2)
@@ -288,8 +323,9 @@
             hip.add(rightLeg)
 
             geometry = new THREE.BoxGeometry( .15, .6, .10 );
-            material = new THREE.MeshToonMaterial( { map: upperLegDenimTexture } ); 
+            material = new THREE.MeshLambertMaterial( { map: upperLegDenimTexture } ); 
             const rUpperLeg = new THREE.Mesh( geometry, material )
+            rUpperLeg.castShadow = true
             rUpperLeg.position.set(0,-.28,.12)
             rightLeg.add(rUpperLeg)
 
@@ -300,8 +336,9 @@
             rUpperLeg.add(axeLEG5) */
 
             geometry = new THREE.BoxGeometry( .15, .5, .10 );
-            material = new THREE.MeshToonMaterial( { map:lowerLegDenimTexture } ); 
+            material = new THREE.MeshLambertMaterial( { map:lowerLegDenimTexture } ); 
             const rLowerLeg = new THREE.Mesh( geometry, material )
+            rLowerLeg.castShadow = true
             rLowerLeg.position.set(0,-.25,0)
             rLowerLeg_PIVOT.add(rLowerLeg)
             /* let axeLEG6 = new THREE.AxesHelper(2)
@@ -314,8 +351,9 @@
             rFeet_PIVOT.add(axeLEG7) */
 
             geometry = new THREE.BoxGeometry( .25, .10, .10 );
-            material = new THREE.MeshToonMaterial( { color: 'dimgray' } ); 
+            material = new THREE.MeshLambertMaterial( { color: 'dimgray' } ); 
             const rFeet = new THREE.Mesh( geometry, material )
+            rFeet.castShadow = true
             rFeet.position.set(.05,-.05,0)
             rFeet_PIVOT.add(rFeet)
             /* let axeLEG8 = new THREE.AxesHelper(2)
@@ -326,8 +364,9 @@
 
             //TRONCO
             geometry = new THREE.BoxGeometry( .15, .6, .35 );
-            material = new THREE.MeshToonMaterial( { color: 'silver', map: torsoTshirtTexture } ); 
+            material = new THREE.MeshLambertMaterial( { color: 'silver', map: torsoTshirtTexture } ); 
             const torso = new THREE.Mesh( geometry, material )
+            torso.castShadow = true
             torso.position.set(0,.37,.0)
             hip.add(torso)
 
@@ -340,8 +379,9 @@
             torso.add(leftArm)
 
             geometry = new THREE.BoxGeometry( .15, .4, .075 );
-            material = new THREE.MeshToonMaterial( { color: 'silver', map: upperTshirtTexture } ); 
+            material = new THREE.MeshLambertMaterial( { color: 'silver', map: upperTshirtTexture } ); 
             const lUpperArm = new THREE.Mesh( geometry, material )
+            lUpperArm.castShadow = true
             lUpperArm.position.set(0,-.2,.0)
             leftArm.add(lUpperArm)
 
@@ -352,8 +392,9 @@
             lLowerArm_PIVOT.add(axeARM2) */
 
             geometry = new THREE.BoxGeometry( .15, .4, .075 );
-            material = new THREE.MeshToonMaterial( { color: 'wheat' } ); 
+            material = new THREE.MeshLambertMaterial( { color: 'wheat' } ); 
             const lLowerArm = new THREE.Mesh( geometry, material )
+            lLowerArm.castShadow = true
             lLowerArm.position.set(0,-.2,.0)
             lLowerArm_PIVOT.add(lLowerArm)
 
@@ -364,8 +405,9 @@
             lLowerArm.add(lHand_PIVOT)
 
             geometry = new THREE.BoxGeometry( .15, .075, .0375/2 );
-            material = new THREE.MeshToonMaterial( { color: 'wheat' } ); 
+            material = new THREE.MeshLambertMaterial( { color: 'wheat' } ); 
             const lPalmHand = new THREE.Mesh( geometry, material )
+            lPalmHand.castShadow = true
             lPalmHand.position.set(0,-.0375,.0)
             lHand_PIVOT.add(lPalmHand)
 
@@ -376,8 +418,9 @@
             lPalmHand.add(lMiddleHand_Pivot)
 
             geometry = new THREE.BoxGeometry( .15, .01875, .0375/2 );
-            material = new THREE.MeshToonMaterial( { color: 'wheat' } ); 
+            material = new THREE.MeshLambertMaterial( { color: 'wheat' } ); 
             const lMiddleHand = new THREE.Mesh( geometry, material )
+            lMiddleHand.castShadow = true
             lMiddleHand.position.set(0,-.009375,.0)
             lMiddleHand_Pivot.add(lMiddleHand)
 
@@ -388,8 +431,9 @@
             lMiddleHand.add(lTopHand_Pivot)
 
             geometry = new THREE.BoxGeometry( .15, .075, .0375/2 );
-            material = new THREE.MeshToonMaterial( { color: 'wheat' } ); 
+            material = new THREE.MeshLambertMaterial( { color: 'wheat' } ); 
             const lTopHand = new THREE.Mesh( geometry, material )
+            lTopHand.castShadow = true
             lTopHand.position.set(0,-.0375,.0)
             lTopHand_Pivot.add(lTopHand)
 
@@ -401,8 +445,9 @@
             torso.add(rightArm)
 
             geometry = new THREE.BoxGeometry( .15, .4, .075 );
-            material = new THREE.MeshToonMaterial( { color: 'silver', map: upperTshirtTexture } ); 
+            material = new THREE.MeshLambertMaterial( { color: 'silver', map: upperTshirtTexture } ); 
             const rUpperArm = new THREE.Mesh( geometry, material )
+            rUpperArm.castShadow = true
             rUpperArm.position.set(0,-.2,.0)
             rightArm.add(rUpperArm)
 
@@ -413,8 +458,9 @@
             rLowerArm_PIVOT.add(axeARM7) */
 
             geometry = new THREE.BoxGeometry( .15, .4, .075 );
-            material = new THREE.MeshToonMaterial( { color: 'wheat' } ); 
+            material = new THREE.MeshLambertMaterial( { color: 'wheat' } ); 
             const rLowerArm = new THREE.Mesh( geometry, material )
+            rLowerArm.castShadow = true
             rLowerArm.position.set(0,-.2,.0)
             rLowerArm_PIVOT.add(rLowerArm)
 
@@ -425,8 +471,9 @@
             rLowerArm.add(rHand_PIVOT)
 
             geometry = new THREE.BoxGeometry( .15, .075, .0375/2 );
-            material = new THREE.MeshToonMaterial( { color: 'wheat' } ); 
+            material = new THREE.MeshLambertMaterial( { color: 'wheat' } ); 
             const rPalmHand = new THREE.Mesh( geometry, material )
+            rPalmHand.castShadow = true
             rPalmHand.position.set(0,-.0375,.0)
             rHand_PIVOT.add(rPalmHand)
 
@@ -437,8 +484,9 @@
             rPalmHand.add(rMiddleHand_Pivot)
 
             geometry = new THREE.BoxGeometry( .15, .01875, .0375/2 );
-            material = new THREE.MeshToonMaterial( { color: 'wheat' } ); 
+            material = new THREE.MeshLambertMaterial( { color: 'wheat' } ); 
             const rMiddleHand = new THREE.Mesh( geometry, material )
+            rMiddleHand.castShadow = true
             rMiddleHand.position.set(0,-.009375,.0)
             rMiddleHand_Pivot.add(rMiddleHand)
 
@@ -449,64 +497,73 @@
             rMiddleHand.add(rTopHand_Pivot)
 
             geometry = new THREE.BoxGeometry( .15, .075, .0375/2 );
-            material = new THREE.MeshToonMaterial( { color: 'wheat' } ); 
+            material = new THREE.MeshLambertMaterial( { color: 'wheat' } ); 
             const rTopHand = new THREE.Mesh( geometry, material )
+            rTopHand.castShadow = true
             rTopHand.position.set(0,-.0375,.0)
             rTopHand_Pivot.add(rTopHand)
 
             //PESCOÇO
             
             geometry = new THREE.BoxGeometry( .10,.0375, .10);
-            material = new THREE.MeshToonMaterial( { color: 'wheat' } ); 
+            material = new THREE.MeshLambertMaterial( { color: 'wheat' } ); 
             const neck = new THREE.Mesh( geometry, material )
+            neck.castShadow = true
             neck.position.set(0,.31875,0)
             torso.add(neck)
 
             //CABEÇA
             geometry = new THREE.BoxGeometry( .20,.25, .20);
-            material = new THREE.MeshToonMaterial( { color: 'wheat' } ); 
+            material = new THREE.MeshLambertMaterial( { color: 'wheat' } ); 
             const head = new THREE.Mesh( geometry, material )
+            head.castShadow = true
             head.position.set(0,.1375,0)
             neck.add(head)
 
             //OLHOS
             geometry = new THREE.BoxGeometry( .0125,.050, .025);
-            material = new THREE.MeshToonMaterial( { color: 'black' } ); 
+            material = new THREE.MeshLambertMaterial( { color: 'black' } ); 
             const leftEye = new THREE.Mesh( geometry, material )
+            leftArm.castShadow = true
             leftEye.position.set(.10625,.03,-.045)
             head.add(leftEye)
 
             geometry = new THREE.BoxGeometry( .0125,.050, .025);
-            material = new THREE.MeshToonMaterial( { color: 'black' } ); 
+            material = new THREE.MeshLambertMaterial( { color: 'black' } ); 
             const rightEye = new THREE.Mesh( geometry, material )
+            rightArm.castShadow = true
             rightEye.position.set(.10625,.03,.045)
             head.add(rightEye)
 
             //NARIZ
             geometry = new THREE.BoxGeometry( .04,.060, .030);
-            material = new THREE.MeshToonMaterial( { color: 'orange' } ); 
+            material = new THREE.MeshLambertMaterial( { color: 'orange' } ); 
             const nose = new THREE.Mesh( geometry, material )
+            nose.castShadow = true
             nose.position.set(.09,-.015,0)
             nose.rotation.z = Math.PI/8
             head.add(nose)
 
             //BOCA
             geometry = new THREE.BoxGeometry( .0125,.02, .065);
-            material = new THREE.MeshToonMaterial( { color: 'black' } ); 
+            material = new THREE.MeshLambertMaterial( { color: 'black' } ); 
             const mouth = new THREE.Mesh( geometry, material )
+            mouth.castShadow = true
             mouth.position.set(.10625,-.08,.045)
             head.add(mouth)
 
             //CABELO
             geometry = new THREE.BoxGeometry( .20,.03, .20);
-            material = new THREE.MeshToonMaterial( { color: 'sienna' } ); 
+            material = new THREE.MeshLambertMaterial( { color: 'sienna' } ); 
             const hair = new THREE.Mesh( geometry, material )
+            hair.castShadow = true
             hair.position.set(0,.135,0)
             head.add(hair)
 
             geometry = new THREE.BoxGeometry( .015,.25, .20);
-            material = new THREE.MeshToonMaterial( { color: 'sienna' } ); 
+            material = new THREE.MeshLambertMaterial( { color: 'sienna' } ); 
             const backHair = new THREE.Mesh( geometry, material )
+            backHair.castShadow = true
             backHair.position.set(-0.1,0,0)
             head.add(backHair)
 
@@ -518,11 +575,11 @@
             roadTexture.wrapS = THREE.RepeatWrapping;
             roadTexture.wrapT = THREE.RepeatWrapping;
             roadTexture.repeat.set(8,1)
-            material = new THREE.MeshToonMaterial( {color: "gray", side: THREE.DoubleSide, map: roadTexture} )
+            material = new THREE.MeshLambertMaterial( {color: "gray", side: THREE.DoubleSide, map: roadTexture} )
             const road = new THREE.Mesh( geometry, material )
-            road.rotation.x=Math.PI/2
+            road.rotation.x=-Math.PI/2
             road.position.set(0,-.97,0)
-            road.recieveShadow = true
+            road.receiveShadow = true
             scene.add(road)
 
             //Passeios
@@ -532,17 +589,17 @@
             sidewalkTexture.repeat.set(40,1)
 
             geometry = new THREE.BoxGeometry( 128,.25, 1.5);
-            material = new THREE.MeshToonMaterial( {color: 'white', map: sidewalkTexture } ); 
+            material = new THREE.MeshLambertMaterial( {color: 'white', map: sidewalkTexture } ); 
             const lSidewalk = new THREE.Mesh( geometry, material )
             lSidewalk.position.set(0,-.85,-3.25)
-            lSidewalk.recieveShadow = true
+            lSidewalk.receiveShadow = true
             scene.add(lSidewalk)
 
             geometry = new THREE.BoxGeometry( 128,.25, 1.5);
-            material = new THREE.MeshToonMaterial( { color: 'white', map: sidewalkTexture } ); 
+            material = new THREE.MeshLambertMaterial( { color: 'white', map: sidewalkTexture } ); 
             const rSidewalk = new THREE.Mesh( geometry, material )
             rSidewalk.position.set(0,-.85,3.25)
-            rSidewalk.recieveShadow = true
+            rSidewalk.receiveShadow = true
             scene.add(rSidewalk)
 
             //roadTexture.offset.set(0.5, 0)
@@ -640,11 +697,12 @@
                 }
 
                 rotateAxle(rotation)
-
                 renderer.render(scene, camera);
             }
-            /* const helper = new THREE.CameraHelper( light.shadow.camera );
-            scene.add( helper ); */
+            const helper = new THREE.CameraHelper( light.shadow.camera );
+            scene.add( helper );
+            const help = new THREE.DirectionalLightHelper(light, 4)
+            scene.add(help)
 
             function rotateLegAndPedal(){
               lPedal.rotateY(2*Math.PI/100)
@@ -878,6 +936,7 @@
                 inc = 0
               }
             }
+
     </script>
     <a href="https://www.vecteezy.com/free-vector/road">Road Vectors by Vecteezy</a>
     <a href="https://www.vecteezy.com/free-photos">Free Stock photos by Vecteezy</a>
