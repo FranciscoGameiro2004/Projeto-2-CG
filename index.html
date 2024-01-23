@@ -513,10 +513,11 @@
             //---CENÁRIO---
 
             //ESTRADA
-            geometry = new THREE.PlaneGeometry(32,6)
+            geometry = new THREE.PlaneGeometry(128,6)
             let roadTexture = new THREE.TextureLoader().load('Assets/road.png')
             roadTexture.wrapS = THREE.RepeatWrapping;
             roadTexture.wrapT = THREE.RepeatWrapping;
+            roadTexture.repeat.set(8,1)
             material = new THREE.MeshToonMaterial( {color: "gray", side: THREE.DoubleSide, map: roadTexture} )
             const road = new THREE.Mesh( geometry, material )
             road.rotation.x=Math.PI/2
@@ -528,16 +529,16 @@
             let sidewalkTexture = new THREE.TextureLoader().load('Assets/sidewalk.jpg')
             sidewalkTexture.wrapS = THREE.RepeatWrapping;
             sidewalkTexture.wrapT = THREE.RepeatWrapping;
-            sidewalkTexture.repeat.set(5,1)
+            sidewalkTexture.repeat.set(40,1)
 
-            geometry = new THREE.BoxGeometry( 32,.25, 1.5);
-            material = new THREE.MeshToonMaterial( { color: 'white', map: sidewalkTexture } ); 
+            geometry = new THREE.BoxGeometry( 128,.25, 1.5);
+            material = new THREE.MeshToonMaterial( {color: 'white', map: sidewalkTexture } ); 
             const lSidewalk = new THREE.Mesh( geometry, material )
             lSidewalk.position.set(0,-.85,-3.25)
             lSidewalk.recieveShadow = true
             scene.add(lSidewalk)
 
-            geometry = new THREE.BoxGeometry( 32,.25, 1.5);
+            geometry = new THREE.BoxGeometry( 128,.25, 1.5);
             material = new THREE.MeshToonMaterial( { color: 'white', map: sidewalkTexture } ); 
             const rSidewalk = new THREE.Mesh( geometry, material )
             rSidewalk.position.set(0,-.85,3.25)
@@ -571,6 +572,8 @@
             let move = {left: false, right: false, transitionLeft: false}
             let inc = 0
             let incOP = 0
+
+            let controlKeys = {goLeft:{noCaps: 'a', caps:'A'}, goRight:{noCaps: 'd', caps:'D'}}
             function render(){
               let rotation
               clock.old = clock.new
@@ -845,12 +848,12 @@
             }
 
             document.onkeydown = function (e){
-              if (e.key == 'a' || e.key == 'A'){
+              if (e.key == controlKeys.goLeft.noCaps || e.key == controlKeys.goLeft.caps){
                 move.left = true
                 move.right = false
                 incOP = 0
                 move.transitionLeft = false
-              } else if (e.key == 'd' || e.key == 'D'){
+              } else if (e.key == controlKeys.goRight.noCaps || e.key == controlKeys.goRight.caps){
                 move.left = false
                 move.right = true
                 incOP = 0
@@ -861,14 +864,14 @@
             }
 
             document.onkeyup = function (e){
-              if (e.key == 'a' || e.key == 'A'){
+              if (e.key == controlKeys.goLeft.noCaps || e.key == controlKeys.goLeft.caps){
                 move.left = false
                 releaseInc = 0
                 release = true
                 inc = 0
               }
 
-              if (e.key == 'd' || e.key == 'D'){
+              if (e.key == controlKeys.goRight.noCaps || e.key == controlKeys.goRight.caps){
                 move.right = false
                 releaseInc = 0
                 release = true
