@@ -48,13 +48,10 @@
             document.body.appendChild(renderer.domElement);
 
             const light = new THREE.DirectionalLight( 0xffffff, 5 );
-            light.position.set( 2, 5, 0 ); //default; light shining from top
-            light.shadow.mapSize.width = 512
-            light.shadow.mapSize.height = 512
-            light.shadow.camera.near = 0.5
-            light.shadow.camera.far = 100
-            light.target.position.set( 0, 0, 0 );
-            scene.add( light, light.target );
+            light.position.set( 5, 10, 0 ); //default; light shining from top
+            light.target.position.set(0,0,0)
+            light.castShadow = true
+            scene.add( light );
 
             const controls = new OrbitControls(camera, renderer.domElement);
 
@@ -938,10 +935,10 @@
             }
 
     </script>
-    <a href="https://www.vecteezy.com/free-vector/road">Road Vectors by Vecteezy</a>
+    <!-- <a href="https://www.vecteezy.com/free-vector/road">Road Vectors by Vecteezy</a>
     <a href="https://www.vecteezy.com/free-photos">Free Stock photos by Vecteezy</a>
     <a href="https://www.freepik.com/free-photo/blue-texture_1006119.htm#query=blue%20fabric%20texture&position=0&from_view=search&track=ais&uuid=12e25027-1947-49ab-a7ef-f6f5d409ed12">Image by freestockcenter on Freepik</a>
     <a href="https://www.freepik.com/free-vector/diagonal-leather-texture-background_17995625.htm#page=3&query=blue%20metal%20texture&position=21&from_view=search&track=ais&uuid=ca25a646-49c6-40e2-9304-317eee0e17ad">Image by vector_corp on Freepik</a>
-    <a href="https://www.freepik.com/free-photo/silver-metallic-textured-background_4246716.htm#query=silver%20texture&position=3&from_view=keyword&track=ais&uuid=96cd0610-7989-49af-b066-8374cd10f451">Image by rawpixel.com on Freepik</a>
+    <a href="https://www.freepik.com/free-photo/silver-metallic-textured-background_4246716.htm#query=silver%20texture&position=3&from_view=keyword&track=ais&uuid=96cd0610-7989-49af-b066-8374cd10f451">Image by rawpixel.com on Freepik</a> -->
   </body>
 </html>
