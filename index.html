@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Trabalho ThreeJS</title>
     <style>
         body {
             /* set margin to 0 and overflow to hidden, to use the complete page */
@@ -44,7 +44,6 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
             renderer.setClearColor("#333333");
             renderer.shadowMap.enabled = true
-            renderer.shadowMap.type = THREE.PCFSoftShadowMap
             document.body.appendChild(renderer.domElement);
 
             const light = new THREE.DirectionalLight( 0xffffff, 5 );
@@ -636,12 +635,6 @@
                 tireF.rotateZ(-Math.PI/100)
                 tireB.rotateZ(-Math.PI/100)
 
-                /* lPedal.rotateY(.05)
-                rPedal.rotateY(.05)
-                rCirclePedal.rotateY(-.05)
-                lCirclePedal.rotateY(-.05)*/
-
-                //bicycle.translateX(.01)
                 roadTexture.offset.set(roadGo, 0)
                 sidewalkTexture.offset.set(roadGo*5, 0)
                 roadGo += 2*Math.PI/2000
@@ -696,10 +689,6 @@
                 rotateAxle(rotation)
                 renderer.render(scene, camera);
             }
-            const helper = new THREE.CameraHelper( light.shadow.camera );
-            scene.add( helper );
-            const help = new THREE.DirectionalLightHelper(light, 4)
-            scene.add(help)
 
             function rotateLegAndPedal(){
               lPedal.rotateY(2*Math.PI/100)
@@ -709,10 +698,6 @@
 
               currentPedalRotation += 2*Math.PI/100
               currentPedalRotation -= (2*Math.PI)*Math.floor(currentPedalRotation/(2*Math.PI))
-
-              //console.log(currentPedalRotation)
-              //console.log(currentPedalRotation - (2*Math.PI)*Math.floor(currentPedalRotation/(2*Math.PI)));
-              //console.log(clock.new-clock.old);
 
               let leftInc = {leg:.0, lowPiv:.0, feetPiv:.0}
               
@@ -742,8 +727,6 @@
                 rotationStage.left = 7
                 rotationStage.right = 3
               }
-
-              //TODO: DEPOIS ACRESCENTAR MAIS PONTOS FIXOS!!!
 
               // Rotação da perna esquerda
               if (rotationStage.left == 0) {
